@@ -112,13 +112,12 @@ body {
 .hero-dragon {
     position: absolute;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40%;
-    height: 85%;
-    background: url('../images/dragon-hero.png') no-repeat center right;
-    background-size: contain;
-    opacity: 0.25;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: url('../images/dragon-hero.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.6;
     pointer-events: none;
     z-index: 1;
 }
