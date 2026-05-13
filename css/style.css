@@ -116,9 +116,9 @@ body {
     transform: translateY(-50%);
     width: 40%;
     height: 85%;
-    background: url('../images/dragon-hero.jpg') no-repeat center right;
+    background: url('../images/dragon-hero.png') no-repeat center right;
     background-size: contain;
-    opacity: 0.15;
+    opacity: 0.25;
     pointer-events: none;
     z-index: 1;
 }
