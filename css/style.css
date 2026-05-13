@@ -109,6 +109,22 @@ body {
     background-size: cover;
     opacity: 0.5;
 }
+.hero-dragon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40%;
+    height: 85%;
+    background: url('../images/dragon-hero.jpg') no-repeat center right;
+    background-size: contain;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+}
+@media (max-width: 768px) {
+    .hero-dragon { display: none; }
+}
 .hero-content {
     position: relative;
     z-index: 2;
