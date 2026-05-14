@@ -422,7 +422,17 @@ function handleSubmit(e) {
             btn.disabled = false;
             e.target.reset();
         }, 2000);
-    }, 1000);
+    }).catch(() => {
+        btn.textContent = (currentLang === 'en') ? '✗ Failed' : '✗ 发送失败';
+        btn.style.background = '#28a745';
+        btn.style.color = 'white';
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.disabled = false;
+        }, 2000);
+    });
 }
 
 // ======== Scroll Navbar Effect ========
