@@ -393,5 +393,26 @@
     </div>
 </div>
 
+
+<!-- Floating WhatsApp Chat Button -->
+<a href="https://wa.me/8615990731636" target="_blank" class="float-whatsapp" title="实时咨询" onclick="this.querySelector('.badge').style.display='none'">
+    <i class="fab fa-whatsapp"></i>
+    <span class="badge">💬</span>
+</a>
+<div class="float-whatsapp-tip" id="whatsappTip">
+    需要帮助？点击这里实时咨询 👋
+</div>
+<script>
+    setTimeout(() => {
+        const tip = document.getElementById('whatsappTip');
+        if (tip) {
+            setTimeout(() => { tip.style.display = 'none'; }, 6000);
+        }
+    }, 1000);
+    document.querySelector('.float-whatsapp')?.addEventListener('click', () => {
+        document.getElementById('whatsappTip').style.display = 'none';
+    });
+</script>
+
 </body>
 </html>
