@@ -116,7 +116,7 @@ body {
     width: 16%;
     aspect-ratio: 1/1;
     max-width: 160px;
-    background: url('../images/cartoon-dragon-3.png') no-repeat center center;
+    background: url('../images/cartoon-dragon-3.jpg') no-repeat center center;
     background-size: contain;
     opacity: 0.7;
     pointer-events: none;
