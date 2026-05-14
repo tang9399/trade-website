@@ -287,18 +287,20 @@
             <p data-i18n="contact.subtitle">立即获取报价，开启合作之旅</p>
         </div>
         <div class="contact-wrapper">
-            <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
-                <input type="text" placeholder="Your Name *" data-i18n-placeholder="contact.name" required>
-                <input type="email" placeholder="Email Address *" data-i18n-placeholder="contact.email" required>
-                <input type="text" placeholder="Company Name" data-i18n-placeholder="contact.company">
-                <input type="text" placeholder="Phone / WhatsApp" data-i18n-placeholder="contact.phone">
-                <select>
+            <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)" action="https://formsubmit.co/401562890@qq.com" method="POST">
+                <input type="text" name="name" placeholder="Your Name *" data-i18n-placeholder="contact.name" required>
+                <input type="email" name="email" placeholder="Email Address *" data-i18n-placeholder="contact.email" required>
+                <input type="text" name="company" placeholder="Company Name" data-i18n-placeholder="contact.company">
+                <input type="text" name="phone" placeholder="Phone / WhatsApp" data-i18n-placeholder="contact.phone">
+                <select name="inquiry">
                     <option data-i18n="contact.inquiry1" value="Product Inquiry">产品询价</option>
                     <option data-i18n="contact.inquiry2" value="Logistics">物流咨询</option>
                     <option data-i18n="contact.inquiry3" value="Customization">OEM/ODM定制</option>
                     <option data-i18n="contact.inquiry4" value="Other">其他合作</option>
                 </select>
-                <textarea rows="5" placeholder="Tell us what you need *" data-i18n-placeholder="contact.message" required></textarea>
+                <textarea name="message" rows="5" placeholder="Tell us what you need *" data-i18n-placeholder="contact.message" required></textarea>
+                <input type="hidden" name="_subject" value="野莓国际网站新询盘">
+                <input type="hidden" name="_template" value="table">
                 <button type="submit" class="btn btn-primary btn-block" data-i18n="contact.submit">发送询盘</button>
             </form>
             <div class="contact-info">

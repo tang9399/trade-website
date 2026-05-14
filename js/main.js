@@ -401,9 +401,18 @@ function handleSubmit(e) {
     btn.textContent = (currentLang === 'en') ? 'Sending...' : '发送中...';
     btn.disabled = true;
 
-    // Simulate submission (in production, send to your backend)
-    setTimeout(() => {
-        btn.textContent = (currentLang === 'en') ? '✓ Sent Successfully' : '✓ 发送成功';
+    // Submit to FormSubmit
+    const formData = new FormData(e.target);
+    fetch(e.target.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+    }).then(res => {
+        if (res.ok) {
+            btn.textContent = (currentLang === 'en') ? '✓ Sent Successfully' : '✓ 发送成功';
+        } else {
+            btn.textContent = (currentLang === 'en') ? '✗ Failed' : '✗ 发送失败';
+        }
         btn.style.background = '#28a745';
         btn.style.color = 'white';
         setTimeout(() => {
