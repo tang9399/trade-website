@@ -12,6 +12,11 @@ const i18n = {
         'nav.cert': '资质证书',
         'nav.contact': '联系我们',
         'nav.cases': '成功案例',
+        '_meta_title': '9399dragon.com - 义乌采购代理 | 中国到哈萨克斯坦/俄罗斯/欧洲物流服务',
+        '_meta_desc': '野莓国际贸易（TradeDragon）— 义乌一站式采购代理，10+年经验。提供采购、验货、报关、海运空运到哈萨克斯坦、俄罗斯及欧洲的全链条服务。100+合作客户。95家哈萨克斯坦连锁门店成功案例。',
+        '_meta_keywords': '义乌采购代理, 义乌国际贸易, 中国到哈萨克斯坦物流, 中俄物流, 中国采购服务, 跨境电商物流, 义乌到阿拉木图, TradeDragon',
+        '_og_title': '9399dragon.com — 您值得信赖的中国采购伙伴',
+        '_og_desc': '义乌一站式采购代理，采购、验货、物流到哈萨克斯坦/俄罗斯/欧洲，全链条服务。',
         'hero.title': '野莓国际 · TradeDragon<br>Your Sourcing Partner',
         'hero.subtitle': '商务接待 · 一站式采购 · 跨境物流 · 全球交付',
         'hero.desc': '深耕进出口贸易多年，整合稳定供应链与成熟跨境物流体系，为全球客户提供全链条贸易服务',
@@ -126,6 +131,11 @@ const i18n = {
         'nav.advantages': 'Advantages',
         'nav.cert': 'Strengths',
         'nav.contact': 'Contact',
+        '_meta_title': '9399dragon.com - Yiwu Sourcing Agent | China Procurement &amp; Logistics to Kazakhstan &amp; Russia',
+        '_meta_desc': 'Professional sourcing agent in Yiwu, China since 2013. One-stop procurement, quality inspection &amp; shipping to Kazakhstan, Russia, Central Asia &amp; Europe. 100+ clients. 95 franchise stores launched in Kazakhstan.',
+        '_meta_keywords': 'Yiwu sourcing agent, China procurement, Kazakhstan logistics, sourcing from China, Yiwu purchasing agent, China to Kazakhstan shipping, TradeDragon',
+        '_og_title': '9399dragon.com - Your Sourcing Partner in China',
+        '_og_desc': 'Professional sourcing agent in Yiwu. One-stop procurement, inspection &amp; shipping to Kazakhstan, Russia &amp; Europe.',
         'hero.title': 'TradeDragon<br>Your Sourcing Partner in China',
         'hero.subtitle': 'Business Reception · One-Stop Sourcing · Cross-Border Logistics · Global Delivery',
         'hero.desc': 'Years of experience in import & export trade. Integrated supply chain and logistics to serve global clients.',
@@ -235,6 +245,11 @@ const i18n = {
     },
 
     'ru': {
+        '_meta_title': '9399dragon.com - Агент по закупкам в Иу | Доставка из Китая в Казахстан',
+        '_meta_desc': 'Профессиональный агент по закупкам в Иу (Китай). Полный цикл: поиск поставщиков, контроль качества, логистика в Казахстан, Россию, Среднюю Азию и Европу. Более 10 лет опыта. 100+ клиентов. 95 магазинов открыто в Казахстане.',
+        '_meta_keywords': 'закупки в Китае, агент в Иу, доставка из Китая в Казахстан, поставщик из Китая, оптовые закупки, логистика Китай Казахстан, товары из Китая, TradeDragon',
+        '_og_title': '9399dragon.com — Ваш партнёр по закупкам в Китае',
+        '_og_desc': 'Агент по закупкам в Иу. Полный цикл: закупки, инспекция, доставка в Казахстан, Россию и Европу.',
         'nav.home': 'Главная',
         'nav.about': 'О нас',
         'nav.products': 'Услуги',
@@ -366,6 +381,24 @@ function toggleLang() {
 function applyLang(lang) {
     const translations = i18n[lang];
     if (!translations) return;
+
+    // Update page title and meta description dynamically
+    if (translations._meta_title) {
+        document.title = translations._meta_title;
+    }
+    if (translations._meta_desc) {
+        document.querySelector('meta[name="description"]').setAttribute('content', translations._meta_desc);
+    }
+    if (translations._meta_keywords) {
+        const kw = document.querySelector('meta[name="keywords"]');
+        if (kw) kw.setAttribute('content', translations._meta_keywords);
+    }
+    if (translations._og_title) {
+        document.querySelector('meta[property="og:title"]').setAttribute('content', translations._og_title);
+    }
+    if (translations._og_desc) {
+        document.querySelector('meta[property="og:description"]').setAttribute('content', translations._og_desc);
+    }
 
     // Update data-i18n elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
