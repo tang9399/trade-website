@@ -576,7 +576,7 @@ async function handleSubmit(event) {
 
     try {
         // We use formsubmit.co for email delivery
-        const response = await fetch('https://formsubmit.co/ajax/fuqing@yandex.ru', {
+        const response = await fetch('https://formsubmit.co/ajax/401562890@qq.com', {
             method: 'POST',
             body: formData,
             headers: { 'Accept': 'application/json' }
@@ -636,7 +636,7 @@ async function handleNewsletterSubmit(event) {
         formData.append('_subject', 'Newsletter Subscription - 9399dragon.com');
         formData.append('_captcha', 'false');
         
-        await fetch('https://formsubmit.co/ajax/fuqing@yandex.ru', {
+        await fetch('https://formsubmit.co/ajax/401562890@qq.com', {
             method: 'POST',
             body: formData,
             headers: { 'Accept': 'application/json' }
