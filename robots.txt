@@ -1,0 +1,27 @@
+# robots.txt for 9399dragon.com
+User-agent: *
+Allow: /
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://9399dragon.com/sitemap.xml
+
+# Crawl rules
+Crawl-delay: 5
+
+# Yandex specific
+User-agent: Yandex
+Allow: /
+Crawl-delay: 3
+Host: https://9399dragon.com
+
+# Google specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 3

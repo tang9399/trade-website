@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://9399dragon.com/</loc>
+    <lastmod>2025-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://9399dragon.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://9399dragon.com/en/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://9399dragon.com/ru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://9399dragon.com/" />
+  </url>
+</urlset>
