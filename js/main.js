@@ -176,7 +176,7 @@ const i18n = {
         'contact.info.title': '联系方式',
         'contact.info.address': '浙江省义乌市福田街道涌金大道B9',
         'contact.info.phone': '+86 159 9073 1636',
-        'contact.info.email': 'fuqing@yandex.ru',
+        'contact.info.email': '401562890@qq.com',
         // Cases
         'cases.title': '成功案例',
         'cases.subtitle': '助力全球客户成功，用实力说话',
@@ -388,7 +388,7 @@ const i18n = {
         'contact.info.title': 'Contact Info',
         'contact.info.address': 'B9, Yongjin Avenue, Futian Street, Yiwu, Zhejiang, China',
         'contact.info.phone': '+86 159 9073 1636',
-        'contact.info.email': 'fuqing@yandex.ru',
+        'contact.info.email': '401562890@qq.com',
         // Cases
         'cases.title': 'Success Cases',
         'cases.subtitle': 'Real results for our global clients',
@@ -685,7 +685,7 @@ function injectJsonLd() {
             "@type": "ContactPoint",
             "telephone": "+86-159-9073-1636",
             "contactType": "sales",
-            "email": "fuqing@yandex.ru",
+            "email": "401562890@qq.com",
             "availableLanguage": ["Chinese", "English", "Russian"]
         },
         "sameAs": [
