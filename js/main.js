@@ -432,16 +432,38 @@ const i18n = {
     }
 };
 
+// ======== Russian Translations ========
+const ru = {
+    'nav.home': 'Главная','nav.about': 'О нас','nav.products': 'Услуги','nav.advantages': 'Преимущества','nav.cert': 'Лицензии','nav.contact': 'Контакты','nav.cases': 'Кейсы','nav.categories': 'Категории','nav.workflow': 'Процесс','nav.testimonials': 'Отзывы','nav.gallery': 'Галерея','nav.faq': 'FAQ',
+    '_meta_title': '9399dragon.com - Агент по закупкам в Иу | Логистика Китай-Казахстан/Россия/Европа','_meta_desc': 'Профессиональный агент по закупкам в Иу. Поиск поставщиков, инспекция, логистика в Казахстан, Россию, Европу. 10+ лет опыта.','_meta_keywords': 'закупки Иу, sourcing Китай, логистика Казахстан, TradeDragon','_og_title': 'TradeDragon — Ваш партнер по sourcing в Китае','_og_desc': 'Агент по закупкам в Иу. Полный цикл: поиск, инспекция, доставка.',
+    'hero.title': 'Wild Berry · TradeDragon<br>Ваш партнер по sourcing','hero.subtitle': 'Sourcing · Логистика · Глобальная доставка','hero.desc': 'Многолетний опыт в импортно-экспортной торговле. Комплексные услуги для глобальных клиентов.','hero.inquiry': 'Получить предложение','hero.products': 'Наши услуги','hero.years': 'Лет опыта','hero.countries': 'Рынки','hero.eurasia': 'Евразия','hero.clients': 'Клиенты',
+    'about.title': 'О компании','about.subtitle': 'TradeDragon — ваш надежный партнер по sourcing','about.h3': 'Качество прежде всего · Честность','about.p1': 'Wild Berry International (TradeDragon) — многолетний опыт в sourcing и логистике. Главный офис в Иу, Чжэцзян — мировой столице товаров.','about.p2': 'Стабильные поставки, строгий контроль качества, эффективная логистика по всей Евразии.','about.p3': 'Качество, честность, взаимовыгодное сотрудничество — наши принципы.','about.f1': 'Интегрированная сеть поставок','about.f2': 'Международная логистика','about.f3': 'Таможенное оформление','about.f4': 'FOB / CIF / DDP','about.img.caption': 'Штаб-квартира в Иу',
+    'products.title': 'Наши услуги','products.subtitle': 'Полный спектр услуг для беззаботного sourcing','products.p1.title': 'Агент по sourcing','products.p1.desc': 'Поиск поставщиков по вашим потребностям. Доставка образцов и проверка качества.','products.p2.title': 'Логистика','products.p2.desc': 'Море, авиа, ЖД, курьер. Отслеживание в реальном времени.','products.p3.title': 'Бизнес-прием','products.p3.desc': 'Перевод, осмотр рынка, посещение фабрик.','products.p4.title': 'OEM/ODM','products.p4.desc': 'Кастомизация и контрактное производство под вашим брендом.','products.p5.title': 'Цены и переговоры','products.p5.desc': 'Точный расчет и переговоры для лучших условий.','products.p6.title': 'Оформление заказа','products.p6.desc': 'Контракт со спецификациями, сроками и условиями оплаты.','products.p7.title': 'Контроль производства','products.p7.desc': 'Отслеживание от сырья до готовой продукции.','products.p8.title': 'Инспекция качества','products.p8.desc': 'Многоступенчатый контроль QC на всех этапах.',
+    'adv.title': 'Почему мы','adv.subtitle': 'Четыре ключевых преимущества','adv.a1.title': 'Прямой sourcing','adv.a1.desc': 'База в Иу, обширная сеть поставщиков. Лучшие цены без посредников.','adv.a2.title': 'Контроль качества','adv.a2.desc': 'Полное управление качеством от поставщика до отгрузки.','adv.a3.title': 'Эффективная логистика','adv.a3.desc': 'Партнерство с ведущими перевозчиками. Отслеживание в реальном времени.','adv.a4.title': 'Полный сервис','adv.a4.desc': 'Выделенный менеджер от запроса до доставки. Поддержка 24/7.',
+    'cert.title': 'Наши преимущества','cert.subtitle': 'Профессиональная команда','cert.c1': 'Преимущество Иу','cert.c2': 'Честность','cert.c3': 'Логистическая сеть','cert.c4': 'Команда','cert.c5': 'Качество','cert.c6': 'Быстрый ответ','cert.c7': 'Лицензия','cert.cta': 'Приглашаем к сотрудничеству!','cert.btn': 'Связаться',
+    'gallery.title': 'Галерея','gallery.subtitle': 'Реальные сцены нашей работы','gallery.item1': 'Переговоры на фабрике','gallery.item2': 'Инспекция фабрики','gallery.item3': 'Команда Китай-Европа','gallery.item4': 'Выставка','gallery.item5': 'Закупки на рынке','gallery.item6': 'Рынок Иу','gallery.item7': 'Иу Район 6','gallery.item8': 'Прием клиентов',
+    'cat.title': 'Категории','cat.subtitle': 'Широкий ассортимент для закупок','cat.c1': 'Товары','cat.c1d': 'Хозтовары, кухня, гигиена','cat.c2': 'Инструменты','cat.c2d': 'Ручные, электро, стройматериалы','cat.c3': 'Для дома','cat.c3d': 'Мебель, текстиль, декор','cat.c4': 'Электроника','cat.c4d': 'Аксессуары, зарядки, техника','cat.c5': 'Текстиль','cat.c5d': 'Одежда, обувь, сумки','cat.c6': 'Игрушки','cat.c6d': 'Развивающие, подарки',
+    'wf.title': 'Как мы работаем','wf.subtitle': 'Шесть шагов от запроса до доставки','wf.s1': 'Запрос','wf.s1d': 'Пришлите список закупок','wf.s2': 'Цена','wf.s2d': 'Расчет и предложение','wf.s3': 'Образцы','wf.s3d': 'Отправка для проверки','wf.s4': 'Производство','wf.s4d': 'Отслеживание','wf.s5': 'Инспекция','wf.s5d': 'Контроль качества','wf.s6': 'Доставка','wf.s6d': 'Таможня, вовремя',
+    'test.title': 'Отзывы','test.subtitle': 'Что говорят партнеры','test.t1': 'Работаем 2 года. Контроль качества строгий, поставки в Алматы без проблем. Рекомендую!','test.t1a': 'Алибек','test.t1r': 'Казахстан','test.t2': 'Цепочка из Иу в Москву сложна, но TradeDragon справляется отлично.','test.t2a': 'Иванов','test.t2r': 'Россия','test.t3': '95 магазинов без TradeDragon были бы невозможны.','test.t3a': 'Нурлан','test.t3r': 'Казахстан',
+    'faq.title': 'Часто задаваемые вопросы','faq.subtitle': 'Ответы на популярные вопросы','faq.q1': 'Какие категории?','faq.a1': 'Товары, инструменты, для дома, электроника, текстиль, игрушки.','faq.q2': 'Есть ли MOQ?','faq.a2': 'Зависит от категории. Для товаров — низкий MOQ.','faq.q3': 'Срок доставки?','faq.a3': 'Море в Алматы ~15-20 дн, Москва ~20-25. ЖД ~12-18. Авиа 3-7 дн.','faq.q4': 'Способы оплаты?','faq.a4': 'T/T, L/C, Western Union. 30-50% предоплата.','faq.q5': 'Образцы?','faq.a5': 'Да. Стоимость вычитается из заказа.','faq.q6': 'Гарантия качества?','faq.a6': '3-этапный контроль: аудит, инспекция в процессе, перед отгрузкой.','faq.q7': 'Повреждения?','faq.a7': 'Страхуем все грузы. Помогаем с возмещением.',
+    'contact.title': 'Контакты','contact.subtitle': 'Свяжитесь для получения предложения','contact.form.name': 'Ваше имя','contact.form.email': 'Email','contact.form.phone': 'Телефон','contact.form.company': 'Компания','contact.form.country': 'Страна','contact.form.country_pl': 'Выберите страну','contact.form.country_kz': 'Казахстан','contact.form.country_ru': 'Россия','contact.form.country_cn': 'Китай','contact.form.country_uz': 'Узбекистан','contact.form.country_other': 'Другое','contact.form.message': 'Опишите потребности','contact.form.submit': 'Отправить','contact.form.sending': 'Отправка...','contact.form.success': '✓ Отправлено! Свяжемся скоро.','contact.form.fail': '✗ Ошибка','contact.info.title': 'Контакты','contact.info.address': 'B9, Yongjin Ave, Futian, Yiwu, Китай','contact.info.phone': '+86 159 9073 1636','contact.info.email': '401562890@qq.com',
+    'cases.title': 'Кейсы','cases.subtitle': 'Результаты для клиентов','cases.featured': 'Избранный кейс','cases.story.title': 'Франчайзинг в Казахстане','cases.story.desc1': 'Мы соединили клиента с китайским брендом. Полная поддержка.','cases.story.desc2': '<strong>95 магазинов</strong> в Алматы, Нур-Султан, Шымкент.','cases.stores': 'Магазинов','cases.cities': 'Городов','cases.jobs': 'Рабочих мест','cases.p1': 'Подписание','cases.p2': 'Открытие','cases.p3': 'Магазин','cases.p4': 'Обучение','cases.p5': 'Отгрузка','cases.p6': 'Нур-Султан','cases.p7': 'Визит','cases.p8': 'Фото','cases.p9': 'Основатель','cases.p10': 'Магазин 2','cases.cta': 'Хотите узнать больше?','cases.cta.btn': 'Связаться',
+    'footer.desc': 'Wild Berry International — Ваш партнер по sourcing в Иу.','footer.quick': 'Ссылки','footer.services': 'Услуги','footer.newsletter': 'Новости','footer.newsletter_desc': 'Обновления рынка Иу','footer.newsletter_placeholder': 'Ваш email','footer.newsletter_btn': 'Подписаться','footer.rights': 'Все права защищены','footer.privacy': 'Политика конфиденциальности',
+    'whatsapp.tip': 'Нужна помощь? 👋','hero.years.label': 'Лет опыта','hero.markets.label': 'Рынки','hero.clients.label': 'Клиенты'
+};
+
+i18n['ru'] = ru;
+
 // ======== State ========
-let currentLang = localStorage.getItem('lang') || (navigator.language || '').startsWith('zh') ? 'zh-CN' : 'en';
+let currentLang = localStorage.getItem('lang') || (navigator.language || '').startsWith('zh') ? 'zh-CN' : (navigator.language || '').startsWith('ru') ? 'ru' : 'en';
 
 // ======== Update lang button text ========
 function updateLangBtn() {
     const toggle = document.getElementById('langToggle');
     if (toggle) {
-        toggle.textContent = currentLang === 'zh-CN' ? 'EN' : '中文';
+        toggle.textContent = currentLang === 'zh-CN' ? 'EN/RU' : currentLang === 'en' ? '中文/RU' : '中文/EN';
     }
-}
+};
 
 // ======== Apply translations ========
 function applyLang(lang) {
@@ -535,7 +557,7 @@ function applyLang(lang) {
 
 // ======== Toggle Language ========
 function toggleLang() {
-    currentLang = currentLang === 'zh-CN' ? 'en' : 'zh-CN';
+    currentLang = currentLang === 'zh-CN' ? 'en' : currentLang === 'en' ? 'ru' : 'zh-CN';
     localStorage.setItem('lang', currentLang);
     applyLang(currentLang);
     updateLangBtn();
@@ -571,7 +593,7 @@ async function handleSubmit(event) {
 
     // Disable button to prevent double submission
     btn.disabled = true;
-    const sendingText = currentLang === 'zh-CN' ? i18n['zh-CN']['contact.form.sending'] : i18n['en']['contact.form.sending'];
+    const sendingText = currentLang === 'zh-CN' ? i18n['zh-CN']['contact.form.sending'] : currentLang === 'en' ? i18n['en']['contact.form.sending'] : i18n['ru']['contact.form.sending'];    
     btn.textContent = sendingText;
     btn.style.background = '#6c757d';
     btn.style.color = 'white';
@@ -586,7 +608,7 @@ async function handleSubmit(event) {
 
         if (!response.ok) throw new Error('Network error');
 
-        const successText = currentLang === 'zh-CN' ? i18n['zh-CN']['contact.form.success'] : i18n['en']['contact.form.success'];
+        const successText = currentLang === 'zh-CN' ? i18n['zh-CN']['contact.form.success'] : currentLang === 'en' ? i18n['en']['contact.form.success'] : i18n['ru']['contact.form.success'];
         btn.textContent = successText;
         btn.style.background = '#28a745';
         btn.style.color = 'white';
@@ -603,7 +625,7 @@ async function handleSubmit(event) {
         }, 3000);
 
     } catch (err) {
-        const failText = currentLang === 'zh-CN' ? i18n['zh-CN']['contact.form.fail'] : i18n['en']['contact.form.fail'];
+        const failText = currentLang === 'zh-CN' ? i18n['zh-CN']['contact.form.fail'] : currentLang === 'en' ? i18n['en']['contact.form.fail'] : i18n['ru']['contact.form.fail'];
         btn.textContent = failText;
         btn.style.background = '#dc3545';
         btn.style.color = 'white';
@@ -644,7 +666,7 @@ async function handleNewsletterSubmit(event) {
             headers: { 'Accept': 'application/json' }
         });
         
-        const successMsg = currentLang === 'zh-CN' ? '✓ 订阅成功！' : '✓ Subscribed!';
+        const successMsg = currentLang === 'zh-CN' ? '✓ 订阅成功！' : currentLang === 'en' ? '✓ Subscribed!' : '✓ Подписан!';
         btn.textContent = successMsg;
         btn.style.background = '#28a745';
         input.value = '';
@@ -655,7 +677,7 @@ async function handleNewsletterSubmit(event) {
             btn.disabled = false;
         }, 2500);
     } catch (err) {
-        btn.textContent = currentLang === 'zh-CN' ? '✗ 失败' : '✗ Error';
+        btn.textContent = currentLang === 'zh-CN' ? '✗ 失败' : currentLang === 'en' ? '✗ Error' : '✗ Ошибка';
         setTimeout(() => {
             btn.textContent = originalText;
             btn.style.background = '';
