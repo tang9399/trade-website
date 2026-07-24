@@ -62,6 +62,22 @@ const trackingDB = {
       { time: "2025-06-29 09:00", text: "已出关，驶往乌兹别克斯坦", done: true },
       { time: "2025-07-08 11:00", text: "✅ 货物已签收", done: true }
     ]
+  },'  "9399-W7671-0720-1": {
+    trackingNo: "9399-W7671-0720-1",
+    from: "义乌 Yiwu",
+    to: "莫斯科 Moscow",
+    status: "transporting",
+    statusText: "运输中",
+    transportType: "陆路运输",
+    weight: "17kg",
+    eta: "2025-08-15",
+    origin: "义乌福田街道涌金大道B9号",
+    timeline: [
+      { time: "2025-07-18 18:00", text: "包装完成，等待发货", done: true },
+      { time: "2025-07-20 10:00", text: "已发货，从义乌出发", done: true, current: true },
+      { time: "2025-07-25", text: "预计到达霍尔果斯口岸", done: false },
+      { time: "2025-08-15 (预计)", text: "预计到达莫斯科", done: false }
+    ]
   }
 };
 
