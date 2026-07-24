@@ -1052,15 +1052,15 @@ function switchTab(index) {
 const API_TIMEOUT = 5000; // 5秒超时
 
 async function apiCall(endpoint, method, body) {
-  if (!API_BASE_URL) return null; // 未配置 API，走本地数据
   try {
+    const base = API_BASE_URL || '';
     const opts = {
       method,
       headers: { 'Content-Type': 'application/json' },
       signal: AbortSignal.timeout(API_TIMEOUT)
     };
     if (body) opts.body = JSON.stringify(body);
-    const res = await fetch(API_BASE_URL + endpoint, opts);
+    const res = await fetch(base + endpoint, opts);
     if (!res.ok) return null;
     return await res.json();
   } catch (e) {
@@ -1103,6 +1103,21 @@ const trackingDB = {
       { time: '2025-06-22 11:30', text: '到达霍尔果斯口岸，通关中', done: true },
       { time: '2025-06-24 09:00', text: '已出关，进入哈萨克斯坦境内', done: true },
       { time: '2025-07-03 16:00', text: '✅ 货物已签收', done: true }
+    ]
+  },
+  '9399-W7671-0720-1': {
+    no: '9399-W7671-0720-1',
+    from: '义乌 Yiwu',
+    to: '莫斯科 Moscow',
+    status: '运输中',
+    type: '陆路运输',
+    weight: '17kg',
+    eta: '预计 8月15日到达',
+    timeline: [
+      { time: '2025-07-18 18:00', text: '包装完成，等待发货', done: true },
+      { time: '2025-07-20 10:00', text: '已发货，从义乌出发', done: true, current: true },
+      { time: '2025-07-25', text: '预计到达霍尔果斯口岸', done: false },
+      { time: '2025-08-15 (预计)', text: '预计到达莫斯科', done: false }
     ]
   }
 };
