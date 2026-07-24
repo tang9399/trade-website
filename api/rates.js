@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
       from, to, transportType: type, weight,
       unitPrice: Math.round(unitPrice * 100) / 100,
       total, currency: 'CNY',
-      routeTime: to === '莫斯科' ? '西线18-25天 / 东线28-35天' : '预计18-35天',
+      routeTime: to === '莫斯科' ? '西线18-25天 / 东线28-35天' : '预计7-12天',
       note: '含基本报关费，不含关税及特殊操作费'
     }
   });
