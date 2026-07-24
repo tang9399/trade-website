@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>野莓国际物流</title>
+  <link rel="icon" href="./wildberry-logo.jpg" type="image/jpeg">
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      -webkit-font-smoothing: antialiased;
+    }
+    :root {
+      --red: #CC2936;
+      --red-dark: #A81E2A;
+      --red-light: #E84855;
+      --blue: #1B3A5C;
+      --blue-dark: #0F2440;
+      --blue-light: #2C5F8A;
+      --gold: #D4A843;
+      --gold-light: #F0D68A;
+      --bg: #F7F5F2;
+      --card-bg: #FFFFFF;
+      --text: #222;
+      --text-light: #666;
+      --tab-height: 56px;
+      --header-height: 52px;
+      --radius: 12px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    a { color: var(--blue); text-decoration: none; }
+    
+    /* ===== App Shell ===== */
+    .app-shell {
+      max-width: 480px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      position: relative;
+    }
+    
+    /* ===== Header ===== */
+    .app-header {
+      height: var(--header-height);
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .app-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+    }
+    .app-header h1 {
+      color: #fff;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    .app-header .header-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+    }
+    .app-header .header-row {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* ===== Main Content Area ===== */
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      padding-bottom: 8px;
+    }
+    
+    /* ===== Page Container ===== */
+    .page {
+      display: none;
+      padding: 16px 14px;
+      animation: fadeIn 0.25s ease;
+    }
+    .page.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* ===== Bottom Tab Bar ===== */
+    .tab-bar {
+      height: var(--tab-height);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #e8e8e8;
+      flex-shrink: 0;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.04);
+    }
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      transition: color 0.2s;
+      color: #999;
+      position: relative;
+    }
+    .tab-item .tab-icon {
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 2px;
+      transition: transform 0.2s;
+    }
+    .tab-item .tab-label {
+      font-size: 10px;
+      line-height: 1.2;
+      font-weight: 500;
+    }
+    .tab-item.active {
+      color: var(--red);
+    }
+    .tab-item.active .tab-icon {
+      transform: scale(1.1);
+    }
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20%;
+      right: 20%;
+      height: 2.5px;
+      background: var(--red);
+      border-radius: 0 0 3px 3px;
+    }
+    
+    /* ===== Card Component ===== */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title .icon { font-size: 20px; }
+    
+    /* ===== Section Title ===== */
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--blue);
+      padding-left: 12px;
+      border-left: 3px solid var(--red);
+      margin: 16px 0 12px;
+      line-height: 1.3;
+    }
+    
+    /* ===== Hero Section (Home) ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, #1a4a6e 100%);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 120px;
+      height: 120px;
+      border: 3px solid rgba(204,41,54,0.25);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      width: 80px;
+      height: 80px;
+      border: 2px solid rgba(212,168,67,0.2);
+      border-radius: 50%;
+    }
+    .hero-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      object-fit: cover;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .hero h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+    .hero .subtitle {
+      font-size: 12px;
+      color: var(--gold-light);
+      letter-spacing: 4px;
+      margin-bottom: 14px;
+    }
+    .hero .tagline {
+      font-size: 13px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+    .hero .tagline span {
+      display: inline-block;
+      background: rgba(204,41,54,0.3);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin: 3px;
+    }
+    
+    /* ===== Quick Nav Grid ===== */
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .quick-item {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      border: 1px solid transparent;
+    }
+    .quick-item:active {
+      transform: scale(0.96);
+    }
+    .quick-item .qi-icon {
+      font-size: 32px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .quick-item .qi-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .quick-item .qi-desc {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+    .quick-item.tracking:hover { border-color: var(--blue-light); }
+    .quick-item.rates:hover { border-color: var(--red); }
+    .quick-item.routes:hover { border-color: var(--blue-light); }
+    .quick-item.contact:hover { border-color: var(--gold); }
+    
+    /* ===== Tracking Page ===== */
+    .track-input-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .track-input-group input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .track-input-group input:focus {
+      border-color: var(--blue);
+    }
+    .track-input-group button {
+      padding: 12px 20px;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .track-input-group button:active { background: var(--red-dark); }
+    
+    .track-result {
+      display: none;
+    }
+    .track-result.show { display: block; }
+    .track-timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+    .track-timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: #ddd;
+    }
+    .track-node {
+      position: relative;
+      padding-bottom: 18px;
+      padding-left: 10px;
+    }
+    .track-node:last-child { padding-bottom: 0; }
+    .track-node::before {
+      content: '';
+      position: absolute;
+      left: -22px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ddd;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px #ddd;
+    }
+    .track-node.done::before {
+      background: #27ae60;
+      box-shadow: 0 0 0 1px #27ae60;
+    }
+    .track-node.current::before {
+      background: var(--red);
+      box-shadow: 0 0 0 1px var(--red);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 1px var(--red), 0 0 0 4px rgba(204,41,54,0.2); }
+      50% { box-shadow: 0 0 0 1px var(--red), 0 0 0 8px rgba(204,41,54,0.1); }
+    }
+    .track-node .tn-time {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+    .track-node .tn-text {
+      font-size: 13px;
+      color: var(--text);
+      margin-top: 2px;
+    }
+    .track-node.done .tn-text { color: #27ae60; }
+    .track-node.current .tn-text { color: var(--red); font-weight: 600; }
+    .track-info {
+      background: #f0f7ff;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 14px;
+      border-left: 3px solid var(--blue);
+    }
+    .track-info .ti-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 3px 0;
+    }
+    .track-info .ti-row .label { color: var(--text-light); }
+    .track-info .ti-row .value { font-weight: 600; color: var(--blue); }
+    
+    /* ===== Rates Page ===== */
+    .rate-form .form-group {
+      margin-bottom: 14px;
+    }
+    .rate-form label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .rate-form select, .rate-form input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+      appearance: auto;
+      transition: border-color 0.2s;
+    }
+    .rate-form select:focus, .rate-form input:focus {
+      border-color: var(--blue);
+    }
+    .rate-form .btn-calc {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .rate-form .btn-calc:active { opacity: 0.85; }
+    .rate-result {
+      display: none;
+      margin-top: 16px;
+    }
+    .rate-result.show { display: block; }
+    .rate-result .rr-box {
+      background: linear-gradient(135deg, #f8f4f0, #fff);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+    .rate-result .rr-amount {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--red);
+    }
+    .rate-result .rr-unit {
+      font-size: 14px;
+      color: var(--text-light);
+    }
+    .rate-result .rr-note {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+    .rate-result .rr-details {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-light);
+      text-align: left;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+    
+    /* ===== Routes Page ===== */
+    .route-group {
+      margin-bottom: 14px;
+    }
+    .route-group-header {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue);
+      padding: 8px 12px;
+      background: #eef3f8;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .route-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+      border-left: 3px solid var(--blue);
+      transition: transform 0.2s;
+    }
+    .route-card:active { transform: scale(0.98); }
+    .route-card .rc-route {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .route-card .rc-route .arrow {
+      color: var(--red);
+      margin: 0 6px;
+    }
+    .route-card .rc-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .route-card .rc-meta .tag {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: #f0f0f0;
+      color: var(--text-light);
+    }
+    .route-card .rc-meta .tag.express { background: #fde8e8; color: var(--red); }
+    .route-card .rc-meta .tag.standard { background: #e8f0fd; color: var(--blue); }
+    .route-card .rc-time {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
+    .route-card .rc-time strong {
+      color: var(--red);
+    }
+    
+    /* ===== Service Highlight ===== */
+    .service-highlight {
+      background: linear-gradient(135deg, var(--blue-dark), #1a4a6e);
+      border-radius: var(--radius);
+      padding: 18px;
+      color: #fff;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-highlight::after {
+      content: '🚂';
+      position: absolute;
+      right: 12px;
+      bottom: 8px;
+      font-size: 48px;
+      opacity: 0.15;
+    }
+    .service-highlight h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .service-highlight p {
+      font-size: 13px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+    
+    /* ===== Contact Page ===== */
+    .contact-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .contact-card .cc-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .contact-card .cc-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 2px;
+    }
+    .contact-card .cc-en {
+      font-size: 12px;
+      color: var(--text-light);
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .contact-item:active { transform: scale(0.98); }
+    .contact-item .ci-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+    .contact-item .ci-icon.phone { background: #e8f5e9; }
+    .contact-item .ci-icon.whatsapp { background: #e8f5e9; }
+    .contact-item .ci-icon.address { background: #eef3f8; }
+    .contact-item .ci-icon.wechat { background: #eef3f8; }
+    .contact-item .ci-info { flex: 1; }
+    .contact-item .ci-label {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .contact-item .ci-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .contact-item .ci-arrow {
+      color: #ccc;
+      font-size: 18px;
+    }
+    
+    /* ===== About Section ===== */
+    .about-text {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .about-text p { margin-bottom: 8px; }
+    
+    /* ===== Route badges ===== */
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge.red { background: var(--red); color: #fff; }
+    .badge.blue { background: var(--blue); color: #fff; }
+    .badge.gold { background: var(--gold); color: #fff; }
+    
+    /* ===== Scrollbar ===== */
+    .main-content::-webkit-scrollbar { width: 3px; }
+    .main-content::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+    
+    /* ===== Decorative Russian pattern ===== */
+    .rus-border {
+      height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--red) 0px, var(--red) 8px,
+        var(--blue) 8px, var(--blue) 16px,
+        var(--gold) 16px, var(--gold) 24px
+      );
+      margin: 0 -14px 14px;
+      opacity: 0.6;
+    }
+    
+    /* ===== Loading Spinner ===== */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    /* ===== Responsive ===== */
+    @media (min-width: 481px) {
+      .app-shell {
+        border-left: 1px solid #e0e0e0;
+        border-right: 1px solid #e0e0e0;
+        box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell" id="app">
+  
+  <!-- ===== Header ===== -->
+  <header class="app-header">
+    <div class="header-row">
+      <img src="./wildberry-logo.jpg" alt="野莓国际" class="header-logo" id="headerLogo">
+      <h1>野莓国际物流</h1>
+    </div>
+  </header>
+
+  <!-- ===== Main Content ===== -->
+  <div class="main-content" id="mainContent">
+    
+    <!-- ===== Page: Home ===== -->
+    <div class="page active" id="page-home">
+      <!-- Hero -->
+      <div class="hero">
+        <img src="./wildberry-logo.jpg" alt="野莓国际" class="hero-logo" id="heroLogo">
+        <h2>野莓国际</h2>
+        <div class="subtitle">WILDBERRY INTERNATIONAL</div>
+        <div class="tagline">
+          中俄 · 中亚国际物流专线<br>
+          <span>🚂 铁路运输</span>
+          <span>🚛 公路运输</span>
+          <span>📦 散货拼车</span>
+        </div>
+      </div>
+
+      <!-- Quick Nav -->
+      <div class="quick-grid">
+        <div class="quick-item tracking" onclick="switchTab(1)">
+          <span class="qi-icon">📦</span>
+          <div class="qi-label">运单查询</div>
+          <div class="qi-desc">实时追踪货物</div>
+        </div>
+        <div class="quick-item rates" onclick="switchTab(2)">
+          <span class="qi-icon">💰</span>
+          <div class="qi-label">运费估算</div>
+          <div class="qi-desc">快速了解运费</div>
+        </div>
+        <div class="quick-item routes" onclick="switchTab(3)">
+          <span class="qi-icon">🌍</span>
+          <div class="qi-label">国际线路</div>
+          <div class="qi-desc">查看运输路线</div>
+        </div>
+        <div class="quick-item contact" onclick="switchTab(4)">
+          <span class="qi-icon">📞</span>
+          <div class="qi-label">联系我们</div>
+          <div class="qi-desc">咨询与合作</div>
+        </div>
+      </div>
+
+      <!-- Company Intro -->
+      <div class="card">
+        <div class="card-title"><span class="icon">🏢</span> 关于野莓国际</div>
+        <div class="about-text">
+          <p><strong>野莓国际物流</strong> 专注中国至俄罗斯、中亚五国的国际物流运输服务。总部深耕跨境运输多年，拥有成熟的铁路、公路及散货拼车网络。</p>
+          <p>📍 公司地址：<strong>义乌福田街道涌金大道B9号</strong></p>
+          <p>核心优势线路：<strong>义乌 ↔ 中亚/莫斯科</strong>、<strong>广州 ↔ 中亚/莫斯科</strong>，满洲里口岸白关散货拼车，高效通关，安全可靠。</p>
+          <p>西线 18-25 天 · 东线 28-35 天，为您提供灵活、高性价比的国际物流解决方案。</p>
+        </div>
+      </div>
+
+      <!-- Service Highlights -->
+      <div class="service-highlight">
+        <h3>🚂 满洲里白关 · 散货拼车</h3>
+        <p>正规报关，灵活拼柜，适合小批量货物。满洲里口岸快速通关，直达俄罗斯及中亚市场。</p>
+      </div>
+    </div>
+
+    <!-- ===== Page: Tracking ===== -->
+    <div class="page" id="page-tracking">
+      <div class="section-title">📦 运单查询</div>
+      <div class="card">
+        <div class="track-input-group">
+          <input type="text" id="trackInput" placeholder="请输入运单号" maxlength="20" autocomplete="off">
+          <button onclick="searchTracking()">查询</button>
+        </div>
+        <div style="font-size:12px;color:#999;margin-bottom:4px;">示例运单：WB20250701、WB20250615</div>
+      </div>
+      <div class="track-result" id="trackResult">
+        <div class="track-info" id="trackInfo"></div>
+        <div class="card">
+          <div class="card-title" style="font-size:14px;">📍 物流轨迹</div>
+          <div class="track-timeline" id="trackTimeline"></div>
+        </div>
+      </div>
+      <div id="trackEmpty" style="text-align:center;padding:40px 0;color:#bbb;font-size:14px;">
+        📋 输入运单号查询货物状态
+      </div>
+    </div>
+
+    <!-- ===== Page: Rates ===== -->
+    <div class="page" id="page-rates">
+      <div class="section-title">💰 运费估算</div>
+      <div class="card">
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:14px;">选择发货地与目的地，估算参考运费（实际费用以确认为准）</p>
+        <div class="rate-form" id="rateForm">
+          <div class="form-group">
+            <label>📤 发货地</label>
+            <select id="rateFrom">
+              <option value="">请选择发货地</option>
+              <option value="义乌">义乌 Yiwu</option>
+              <option value="广州">广州 Guangzhou</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>📥 目的地</label>
+            <select id="rateTo">
+              <option value="">请选择目的地</option>
+              <option value="哈萨克斯坦">哈萨克斯坦 Kazakhstan</option>
+              <option value="吉尔吉斯斯坦">吉尔吉斯斯坦 Kyrgyzstan</option>
+              <option value="塔吉克斯坦">塔吉克斯坦 Tajikistan</option>
+              <option value="乌兹别克斯坦">乌兹别克斯坦 Uzbekistan</option>
+              <option value="土库曼斯坦">土库曼斯坦 Turkmenistan</option>
+              <option value="莫斯科">莫斯科 Moscow</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>📦 货物类型</label>
+            <select id="rateType">
+              <option value="散货">散货拼车 (LCL)</option>
+              <option value="整柜">整柜 (FCL)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>⚖️ 估算重量 (kg)</label>
+            <input type="number" id="rateWeight" placeholder="请输入货物重量" min="1" value="100">
+          </div>
+          <button class="btn-calc" onclick="calculateRate()">🚀 估算运费</button>
+        </div>
+        <div class="rate-result" id="rateResult">
+          <div class="rr-box">
+            <div style="font-size:13px;color:var(--text-light);margin-bottom:6px;">参考运费</div>
+            <div class="rr-amount" id="rrAmount">¥0</div>
+            <div class="rr-unit" id="rrUnit">/ 参考价 · 含报关</div>
+            <div class="rr-details" id="rrDetails"></div>
+            <div class="rr-note">* 实际运费以货物详情和确认为准</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Page: Routes ===== -->
+    <div class="page" id="page-routes">
+      <div class="section-title">🌍 国际线路</div>
+
+      <!-- East / West -->
+      <div class="card" style="display:flex;gap:12px;padding:14px;text-align:center;">
+        <div style="flex:1;background:linear-gradient(135deg,#fde8e8,#fff);border-radius:10px;padding:12px;">
+          <div style="font-size:24px;">🌅</div>
+          <div style="font-size:14px;font-weight:600;color:var(--red);">西线</div>
+          <div style="font-size:12px;color:var(--text-light);">18-25 天</div>
+        </div>
+        <div style="flex:1;background:linear-gradient(135deg,#e8f0fd,#fff);border-radius:10px;padding:12px;">
+          <div style="font-size:24px;">🌄</div>
+          <div style="font-size:14px;font-weight:600;color:var(--blue);">东线</div>
+          <div style="font-size:12px;color:var(--text-light);">28-35 天</div>
+        </div>
+      </div>
+
+      <!-- Russia Routes -->
+      <div class="route-group">
+        <div class="route-group-header">🇷🇺 俄罗斯线路</div>
+        <div class="route-card" style="border-left-color:var(--red);">
+          <div class="rc-route">义乌 <span class="arrow">→</span> 莫斯科</div>
+          <div class="rc-meta">
+            <span class="tag express">西线 18-25天</span>
+            <span class="tag standard">东线 28-35天</span>
+          </div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong> · 铁路/公路</div>
+        </div>
+        <div class="route-card" style="border-left-color:var(--red);">
+          <div class="rc-route">广州 <span class="arrow">→</span> 莫斯科</div>
+          <div class="rc-meta">
+            <span class="tag express">西线 18-25天</span>
+            <span class="tag standard">东线 28-35天</span>
+          </div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong> · 铁路/公路</div>
+        </div>
+      </div>
+
+      <!-- Central Asia Routes -->
+      <div class="route-group">
+        <div class="route-group-header">🌏 中亚五国线路</div>
+        <div class="route-card">
+          <div class="rc-route">义乌 <span class="arrow">→</span> 哈萨克斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">义乌 <span class="arrow">→</span> 吉尔吉斯斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">义乌 <span class="arrow">→</span> 塔吉克斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">义乌 <span class="arrow">→</span> 乌兹别克斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">义乌 <span class="arrow">→</span> 土库曼斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">广州 <span class="arrow">→</span> 哈萨克斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">广州 <span class="arrow">→</span> 吉尔吉斯斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">广州 <span class="arrow">→</span> 塔吉克斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">广州 <span class="arrow">→</span> 乌兹别克斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+        <div class="route-card">
+          <div class="rc-route">广州 <span class="arrow">→</span> 土库曼斯坦</div>
+          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong></div>
+        </div>
+      </div>
+
+      <!-- Service Highlight -->
+      <div class="service-highlight">
+        <h3>🛤️ 满洲里口岸 · 白关散货拼车</h3>
+        <p>正规报关、灵活拼柜、高效通关。一条龙服务，小批量也能享受整柜价格优势。</p>
+      </div>
+    </div>
+
+    <!-- ===== Page: Contact ===== -->
+    <div class="page" id="page-contact">
+      <div class="section-title">📞 联系我们</div>
+      
+      <div class="contact-card">
+        <img src="./wildberry-logo.jpg" alt="野莓国际" class="cc-logo" id="contactLogo">
+        <div class="cc-name">野莓国际物流</div>
+        <div class="cc-en">WILDBERRY INTERNATIONAL</div>
+        <div style="font-size:12px;color:var(--text-light);">专注中俄 · 中亚国际物流</div>
+      </div>
+
+      <a href="tel:15990731636" style="color:inherit;text-decoration:none;display:block;">
+        <div class="contact-item">
+          <div class="ci-icon phone">📞</div>
+          <div class="ci-info">
+            <div class="ci-label">联系电话</div>
+            <div class="ci-value">15990731636</div>
+          </div>
+          <div class="ci-arrow">›</div>
+        </div>
+      </a>
+
+      <a href="https://wa.me/8615990731636" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;display:block;">
+        <div class="contact-item">
+          <div class="ci-icon whatsapp">💬</div>
+          <div class="ci-info">
+            <div class="ci-label">WhatsApp</div>
+            <div class="ci-value">+86 15990731636</div>
+          </div>
+          <div class="ci-arrow">›</div>
+        </div>
+      </a>
+
+      <div class="contact-item" style="cursor:default;">
+        <div class="ci-icon address">📍</div>
+        <div class="ci-info">
+          <div class="ci-label">公司地址</div>
+          <div class="ci-value" style="font-size:13px;">义乌福田街道涌金大道B9号</div>
+        </div>
+        <div style="font-size:11px;color:var(--text-light);">野莓国际</div>
+      </div>
+
+      <div class="contact-item" onclick="copyText('15990731636')">
+        <div class="ci-icon wechat">💚</div>
+        <div class="ci-info">
+          <div class="ci-label">微信 / 同号</div>
+          <div class="ci-value">15990731636</div>
+        </div>
+        <div class="ci-arrow">📋</div>
+      </div>
+
+      <div class="card" style="margin-top:4px;">
+        <div class="card-title" style="font-size:14px;">📍 服务时间</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.8;">
+          <div>周一至周六 09:00 - 18:00</div>
+          <div style="font-size:12px;color:var(--text-light);margin-top:4px;">非工作时间请留言，我们会尽快回复</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== Bottom Tab Bar ===== -->
+  <nav class="tab-bar" id="tabBar">
+    <div class="tab-item active" data-tab="0" onclick="switchTab(0)">
+      <span class="tab-icon">🏠</span>
+      <span class="tab-label">首页</span>
+    </div>
+    <div class="tab-item" data-tab="1" onclick="switchTab(1)">
+      <span class="tab-icon">📦</span>
+      <span class="tab-label">运单查询</span>
+    </div>
+    <div class="tab-item" data-tab="2" onclick="switchTab(2)">
+      <span class="tab-icon">💰</span>
+      <span class="tab-label">运费估算</span>
+    </div>
+    <div class="tab-item" data-tab="3" onclick="switchTab(3)">
+      <span class="tab-icon">🌍</span>
+      <span class="tab-label">国际线路</span>
+    </div>
+    <div class="tab-item" data-tab="4" onclick="switchTab(4)">
+      <span class="tab-icon">📞</span>
+      <span class="tab-label">联系我们</span>
+    </div>
+  </nav>
+</div>
+
+<script>
+// ============================================
+// 野莓国际物流 - API 配置
+// ============================================
+// 修改下方 API_BASE_URL 即可切换后端
+// 不设置 = 使用本地模拟数据，设置 = 调用真实 API
+const API_BASE_URL = ''; // 例如: 'https://wildberry-api.vercel.app'
+
+// ===== Tab Switching =====
+const pages = ['page-home', 'page-tracking', 'page-rates', 'page-routes', 'page-contact'];
+const tabItems = document.querySelectorAll('.tab-item');
+const mainContent = document.getElementById('mainContent');
+
+function switchTab(index) {
+  pages.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.toggle('active', i === index);
+  });
+  tabItems.forEach((item, i) => {
+    item.classList.toggle('active', i === index);
+  });
+  mainContent.scrollTop = 0;
+}
+
+// ============================================
+// API 调用工具函数（自动降级到本地数据）
+// ============================================
+const API_TIMEOUT = 5000; // 5秒超时
+
+async function apiCall(endpoint, method, body) {
+  if (!API_BASE_URL) return null; // 未配置 API，走本地数据
+  try {
+    const opts = {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      signal: AbortSignal.timeout(API_TIMEOUT)
+    };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(API_BASE_URL + endpoint, opts);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (e) {
+    console.log('API 不可用，使用本地数据:', e.message);
+    return null;
+  }
+}
+
+// ===== 本地运单数据 =====
+const trackingDB = {
+  'WB20250701': {
+    no: 'WB20250701',
+    from: '义乌 Yiwu',
+    to: '莫斯科 Moscow',
+    status: '运输中',
+    type: '铁路运输',
+    weight: '850kg',
+    eta: '预计 7月25日到达',
+    timeline: [
+      { time: '2025-07-01 14:30', text: '已揽收，货物到达义乌仓', done: true },
+      { time: '2025-07-03 09:15', text: '海关报关完成，等待发运', done: true },
+      { time: '2025-07-05 22:00', text: '货物已出关，运往满洲里口岸', done: true },
+      { time: '2025-07-08 16:40', text: '到达满洲里口岸，进行换装作业', done: true },
+      { time: '2025-07-10 08:00', text: '已出关，驶往莫斯科方向', done: false, current: true },
+      { time: '2025-07-25', text: '预计到达莫斯科', done: false }
+    ]
+  },
+  'WB20250615': {
+    no: 'WB20250615',
+    from: '广州 Guangzhou',
+    to: '哈萨克斯坦 Kazakhstan',
+    status: '已签收',
+    type: '散货拼车',
+    weight: '320kg',
+    eta: '已签收',
+    timeline: [
+      { time: '2025-06-15 10:00', text: '已揽收，货物到达广州仓', done: true },
+      { time: '2025-06-17 14:20', text: '海关报关完成，安排发运', done: true },
+      { time: '2025-06-19 06:00', text: '货物出关，驶往霍尔果斯口岸', done: true },
+      { time: '2025-06-22 11:30', text: '到达霍尔果斯口岸，通关中', done: true },
+      { time: '2025-06-24 09:00', text: '已出关，进入哈萨克斯坦境内', done: true },
+      { time: '2025-07-03 16:00', text: '✅ 货物已签收', done: true }
+    ]
+  }
+};
+
+async function searchTracking() {
+  const input = document.getElementById('trackInput').value.trim().toUpperCase();
+  const resultDiv = document.getElementById('trackResult');
+  const emptyDiv = document.getElementById('trackEmpty');
+  const infoDiv = document.getElementById('trackInfo');
+  const timelineDiv = document.getElementById('trackTimeline');
+
+  if (!input) {
+    resultDiv.classList.remove('show');
+    emptyDiv.style.display = 'block';
+    emptyDiv.textContent = '📋 请输入运单号';
+    return;
+  }
+
+  emptyDiv.style.display = 'block';
+  emptyDiv.textContent = '⏳ 查询中...';
+
+  // 1. 尝试调用 API
+  const apiResult = await apiCall('/api/tracking', 'POST', { trackingNo: input });
+  
+  let data = null;
+  if (apiResult && apiResult.success && apiResult.found) {
+    // API 返回数据映射
+    const d = apiResult.data;
+    data = {
+      no: d.trackingNo,
+      from: d.from,
+      to: d.to,
+      status: d.statusText,
+      type: d.transportType,
+      weight: d.weight,
+      eta: d.eta ? '预计 ' + d.eta : '运输中',
+      timeline: d.timeline
+    };
+  } else {
+    // 2. API 不可用时降级到本地数据
+    data = trackingDB[input];
+  }
+
+  if (!data) {
+    resultDiv.classList.remove('show');
+    emptyDiv.style.display = 'block';
+    emptyDiv.textContent = '❌ 未找到该运单，请核对运单号';
+    return;
+  }
+
+  // Show info
+  infoDiv.innerHTML = `
+    <div class="ti-row"><span class="label">运单号</span><span class="value">${data.no}</span></div>
+    <div class="ti-row"><span class="label">线路</span><span class="value">${data.from} → ${data.to}</span></div>
+    <div class="ti-row"><span class="label">状态</span><span class="value">${data.status}</span></div>
+    <div class="ti-row"><span class="label">运输方式</span><span class="value">${data.type}</span></div>
+    <div class="ti-row"><span class="label">货物重量</span><span class="value">${data.weight}</span></div>
+    <div class="ti-row"><span class="label">预计到达</span><span class="value">${data.eta}</span></div>
+  `;
+
+  // Timeline
+  let html = '';
+  data.timeline.forEach(node => {
+    const cls = node.done ? 'done' : (node.current ? 'current' : '');
+    html += `
+      <div class="track-node ${cls}">
+        <div class="tn-time">${node.time}</div>
+        <div class="tn-text">${node.text}</div>
+      </div>
+    `;
+  });
+  timelineDiv.innerHTML = html;
+
+  resultDiv.classList.add('show');
+  emptyDiv.style.display = 'none';
+}
+
+// Enter key for tracking
+document.getElementById('trackInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') searchTracking();
+});
+
+// ===== Rate Calculation =====
+async function calculateRate() {
+  const from = document.getElementById('rateFrom').value;
+  const to = document.getElementById('rateTo').value;
+  const type = document.getElementById('rateType').value;
+  const weight = parseFloat(document.getElementById('rateWeight').value) || 0;
+
+  const resultDiv = document.getElementById('rateResult');
+  const amountEl = document.getElementById('rrAmount');
+  const unitEl = document.getElementById('rrUnit');
+  const detailsEl = document.getElementById('rrDetails');
+
+  if (!from || !to) {
+    alert('请选择发货地和目的地');
+    return;
+  }
+  if (weight <= 0) {
+    alert('请输入有效重量');
+    return;
+  }
+
+  // 1. 尝试调用 API
+  const apiResult = await apiCall('/api/rates', 'POST', { from, to, weight, type });
+  
+  if (apiResult && apiResult.success) {
+    const d = apiResult.data;
+    amountEl.textContent = `¥${d.total.toLocaleString()}`;
+    unitEl.textContent = `参考价 · ${d.from} → ${d.to} · ${d.transportType}`;
+    detailsEl.innerHTML = `
+      <div>📊 单价：¥${d.unitPrice}/kg</div>
+      <div>⚖️ 计费重量：${d.weight}kg</div>
+      <div>🚂 ${d.routeTime}</div>
+      <div style="margin-top:6px;font-size:11px;color:#999;">${d.note}</div>
+    `;
+    resultDiv.classList.add('show');
+    return;
+  }
+
+  // 2. 降级：本地计算
+  const baseRates = {
+    '莫斯科': { rail: 8.5, road: 10.5 },
+    '哈萨克斯坦': { rail: 5.5, road: 7.0 },
+    '吉尔吉斯斯坦': { rail: 6.0, road: 7.5 },
+    '塔吉克斯坦': { rail: 6.5, road: 8.0 },
+    '乌兹别克斯坦': { rail: 6.0, road: 7.5 },
+    '土库曼斯坦': { rail: 7.0, road: 8.5 }
+  };
+
+  const fromFactor = from === '广州' ? 1.05 : 1.0;
+  const rate = baseRates[to];
+  if (!rate) { resultDiv.classList.remove('show'); return; }
+
+  const unitPrice = rate.rail * fromFactor * (type === '整柜' ? 0.85 : 1.0);
+  let total = Math.round(weight * unitPrice);
+  if (total > 1000) total = Math.round(total / 100) * 100;
+
+  amountEl.textContent = `¥${total.toLocaleString()}`;
+  unitEl.textContent = `参考价 · ${from} → ${to} · ${type}`;
+  
+  const routeInfo = to === '莫斯科' 
+    ? '🚂 莫斯科线路：西线18-25天 / 东线28-35天'
+    : '🚂 中亚线路：预计18-35天';
+
+  detailsEl.innerHTML = `
+    <div>📊 单价：¥${unitPrice.toFixed(1)}/kg</div>
+    <div>⚖️ 计费重量：${weight}kg</div>
+    <div>${routeInfo}</div>
+    <div style="margin-top:6px;font-size:11px;color:#999;">* 含基本报关费，不含关税及特殊操作费</div>
+  `;
+  resultDiv.classList.add('show');
+}
+
+// ===== Copy helper =====
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('已复制: ' + text);
+    }).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showToast('已复制: ' + text); }
+  catch(e) { alert('复制失败，请手动复制: ' + text); }
+  document.body.removeChild(ta);
+}
+
+// ===== Toast =====
+function showToast(msg) {
+  const existing = document.querySelector('.toast-msg');
+  if (existing) existing.remove();
+  
+  const div = document.createElement('div');
+  div.className = 'toast-msg';
+  div.textContent = msg;
+  Object.assign(div.style, {
+    position: 'fixed', top: '80px', left: '50%', transform: 'translateX(-50%)',
+    background: 'rgba(0,0,0,0.78)', color: '#fff', padding: '10px 22px',
+    borderRadius: '8px', fontSize: '14px', zIndex: '9999',
+    maxWidth: '300px', textAlign: 'center',
+    animation: 'fadeIn 0.2s ease'
+  });
+  document.body.appendChild(div);
+  setTimeout(() => {
+    div.style.opacity = '0';
+    div.style.transition = 'opacity 0.3s';
+    setTimeout(() => div.remove(), 300);
+  }, 2000);
+}
+
+// ===== Handle image errors gracefully =====
+document.querySelectorAll('img[src*="wildberry-logo"]').forEach(img => {
+  img.onerror = function() {
+    this.style.display = 'none';
+  };
+});
+</script>
+</body>
+</html>
