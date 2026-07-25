@@ -1288,10 +1288,14 @@ function applyLang(lang) {
   // Update page title
   document.title = lang === 'zh' ? '野莓国际物流 / Wildberry Logistics' : 'Wildberry Logistics / 野莓国际物流';
 
-  // If tracking result is visible, update dynamic labels
+  // If tracking result is visible, re-render with new language
   const trackResult = document.getElementById('trackResult');
-  if (trackResult.classList.contains('show')) {
-    updateTrackResultLang();
+  if (trackResult.classList.contains('show') && lastSearchData) {
+    const resultDiv = trackResult;
+    const emptyDiv = document.getElementById('trackEmpty');
+    const infoDiv = document.getElementById('trackInfo');
+    const timelineDiv = document.getElementById('trackTimeline');
+    renderTrackingData(lastSearchData, resultDiv, emptyDiv, infoDiv, timelineDiv);
   }
 }
 
@@ -1301,20 +1305,44 @@ function toggleLang() {
   applyLang(newLang);
 }
 
-// ===== Update tracking result labels on language switch =====
-function updateTrackResultLang() {
+
+
+// ===== Store last searched tracking data for language re-render =====
+let lastSearchData = null;
+
+// ===== Re-render tracking result when language changes =====
+function renderTrackingData(data, resultDiv, emptyDiv, infoDiv, timelineDiv) {
   const t = i18n[currentLang];
-  const infoDiv = document.getElementById('trackInfo');
-  const rows = infoDiv.querySelectorAll('.ti-row');
-  if (rows.length >= 6) {
-    const labels = ['tracking_no', 'tracking_route', 'tracking_status', 'tracking_type', 'tracking_weight', 'tracking_eta'];
-    rows.forEach((row, i) => {
-      if (i < labels.length && t[labels[i]]) {
-        const labelSpan = row.querySelector('.label');
-        if (labelSpan) labelSpan.textContent = t[labels[i]];
-      }
-    });
-  }
+  const tl = tlTexts[currentLang];
+
+  if (!data) return;
+
+  const statusText = data.statusKey ? (t[data.statusKey] || data.status) : (data.status || '');
+
+  infoDiv.innerHTML = `
+    <div class="ti-row"><span class="label">${t.tracking_no}</span><span class="value">${data.no}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_route}</span><span class="value">${data.from} → ${data.to}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_status}</span><span class="value">${statusText}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_type}</span><span class="value">${data.type}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_weight}</span><span class="value">${data.weight}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_eta}</span><span class="value">${data.eta === 'delivered' ? t.delivered : data.eta}</span></div>
+  `;
+
+  let html = '';
+  data.timeline.forEach(node => {
+    const cls = node.done ? 'done' : (node.current ? 'current' : '');
+    const nodeText = (node.textKey && tl[node.textKey]) ? tl[node.textKey] : (node.text || '');
+    html += `
+      <div class="track-node ${cls}">
+        <div class="tn-time">${node.time}</div>
+        <div class="tn-text">${nodeText}</div>
+      </div>
+    `;
+  });
+  timelineDiv.innerHTML = html;
+
+  resultDiv.classList.add('show');
+  emptyDiv.style.display = 'none';
 }
 
 // ============================================
@@ -1539,34 +1567,9 @@ async function searchTracking() {
     return;
   }
 
-  // Get status text: try statusKey first (trackingDB), fallback to status (API)
-  const statusText = data.statusKey ? (t[data.statusKey] || data.status) : (data.status || '');
-
-  infoDiv.innerHTML = `
-    <div class="ti-row"><span class="label">${t.tracking_no}</span><span class="value">${data.no}</span></div>
-    <div class="ti-row"><span class="label">${t.tracking_route}</span><span class="value">${data.from} → ${data.to}</span></div>
-    <div class="ti-row"><span class="label">${t.tracking_status}</span><span class="value">${statusText}</span></div>
-    <div class="ti-row"><span class="label">${t.tracking_type}</span><span class="value">${data.type}</span></div>
-    <div class="ti-row"><span class="label">${t.tracking_weight}</span><span class="value">${data.weight}</span></div>
-    <div class="ti-row"><span class="label">${t.tracking_eta}</span><span class="value">${data.eta === 'delivered' ? t.delivered : data.eta}</span></div>
-  `;
-
-  let html = '';
-  data.timeline.forEach(node => {
-    const cls = node.done ? 'done' : (node.current ? 'current' : '');
-    // For trackingDB data: use textKey; for API data: use text as-is (with statusMap applied if available)
-    const nodeText = (node.textKey && tl[node.textKey]) ? tl[node.textKey] : (node.text || '');
-    html += `
-      <div class="track-node ${cls}">
-        <div class="tn-time">${node.time}</div>
-        <div class="tn-text">${nodeText}</div>
-      </div>
-    `;
-  });
-  timelineDiv.innerHTML = html;
-
-  resultDiv.classList.add('show');
-  emptyDiv.style.display = 'none';
+  // Save for language re-render and render with current language
+  lastSearchData = JSON.parse(JSON.stringify(data));
+  renderTrackingData(data, resultDiv, emptyDiv, infoDiv, timelineDiv);
 }
 
 // Enter key for tracking
