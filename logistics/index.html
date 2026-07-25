@@ -1347,6 +1347,27 @@ function getI18n(key) {
 // ============================================
 // Tracking - переведенные статусы в динамике
 // ============================================
+
+// Chinese → translated status map (for API responses)
+const statusMap = {
+  '运输中': { zh: '运输中', ru: 'В пути' },
+  '已签收': { zh: '已签收', ru: 'Доставлен' },
+  '待发货': { zh: '待发货', ru: 'Ожидает отправки' },
+  '已揽收': { zh: '已揽收', ru: 'Принят' },
+  '清关中': { zh: '清关中', ru: 'На таможне' },
+  '已出关': { zh: '已出关', ru: 'Покинул Китай' },
+};
+
+// Chinese → translated transport type map (for API responses)
+const typeMap = {
+  '铁路运输': { zh: '铁路运输', ru: '🚂 Ж/Д' },
+  '公路运输': { zh: '公路运输', ru: '🚛 Авто' },
+  '陆路运输': { zh: '陆路运输', ru: '🚛 Авто' },
+  '散货拼车': { zh: '散货拼车', ru: '📦 Сборный' },
+  '铁路': { zh: '铁路', ru: '🚂 Ж/Д' },
+  '公路': { zh: '公路', ru: '🚛 Авто' },
+};
+
 const API_TIMEOUT = 5000;
 
 async function apiCall(endpoint, method, body) {
@@ -1478,23 +1499,37 @@ async function searchTracking() {
   emptyDiv.style.display = 'block';
   emptyDiv.textContent = t.trackSearching;
 
-  const apiResult = await apiCall('/api/tracking', 'POST', { trackingNo: input });
-  
-  let data = null;
-  if (apiResult && apiResult.success && apiResult.found) {
-    const d = apiResult.data;
-    data = {
-      no: d.trackingNo,
-      from: d.from,
-      to: d.to,
-      status: d.statusText,
-      type: d.transportType,
-      weight: d.weight,
-      eta: d.eta ? '~' + d.eta : t.inTransit,
-      timeline: d.timeline
-    };
-  } else {
-    data = trackingDB[input];
+  // 1) Prefer trackingDB for known demo numbers (i18n keys work perfectly)
+  let data = trackingDB[input];
+
+  // 2) Fallback to API for unknown numbers
+  if (!data) {
+    const apiResult = await apiCall('/api/tracking', 'POST', { trackingNo: input });
+    if (apiResult && apiResult.success && apiResult.found) {
+      const d = apiResult.data;
+      // Try to translate status text
+      const rawStatus = d.statusText || '';
+      const mappedStatus = (statusMap[rawStatus] && statusMap[rawStatus][currentLang]) || rawStatus;
+      // Try to translate transport type
+      const rawType = d.transportType || '';
+      const mappedType = (typeMap[rawType] && typeMap[rawType][currentLang]) || rawType;
+
+      data = {
+        no: d.trackingNo,
+        from: d.from,
+        to: d.to,
+        status: mappedStatus,
+        type: mappedType,
+        weight: d.weight,
+        eta: d.eta ? '~' + d.eta : t.inTransit,
+        timeline: (d.timeline || []).map(n => ({
+          time: n.time,
+          text: n.text || n.statusText || '',
+          done: n.done || false,
+          current: n.current || false
+        }))
+      };
+    }
   }
 
   if (!data) {
@@ -1504,8 +1539,8 @@ async function searchTracking() {
     return;
   }
 
-  // Get status text
-  const statusText = data.statusKey ? t[data.statusKey] || data.status : (data.status || '');
+  // Get status text: try statusKey first (trackingDB), fallback to status (API)
+  const statusText = data.statusKey ? (t[data.statusKey] || data.status) : (data.status || '');
 
   infoDiv.innerHTML = `
     <div class="ti-row"><span class="label">${t.tracking_no}</span><span class="value">${data.no}</span></div>
@@ -1519,6 +1554,7 @@ async function searchTracking() {
   let html = '';
   data.timeline.forEach(node => {
     const cls = node.done ? 'done' : (node.current ? 'current' : '');
+    // For trackingDB data: use textKey; for API data: use text as-is (with statusMap applied if available)
     const nodeText = (node.textKey && tl[node.textKey]) ? tl[node.textKey] : (node.text || '');
     html += `
       <div class="track-node ${cls}">
