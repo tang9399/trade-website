@@ -1,0 +1,40 @@
+{
+  "WB20250701": {
+    "trackingNo": "WB20250701",
+    "from": "义乌 Yiwu",
+    "to": "莫斯科 Moscow",
+    "status": "transporting",
+    "statusText": "运输中",
+    "transportType": "铁路运输",
+    "weight": "850kg",
+    "eta": "2025-07-25",
+    "origin": "义乌福田街道涌金大道B9号",
+    "timeline": [
+      { "time": "2025-07-01 14:30", "text": "已揽收，货物到达义乌仓", "done": true },
+      { "time": "2025-07-03 09:15", "text": "海关报关完成，等待发运", "done": true },
+      { "time": "2025-07-05 22:00", "text": "货物已出关，运往满洲里口岸", "done": true },
+      { "time": "2025-07-08 16:40", "text": "到达满洲里口岸，进行换装作业", "done": true },
+      { "time": "2025-07-10 08:00", "text": "已出关，驶往莫斯科方向", "done": false, "current": true },
+      { "time": "2025-07-25 (预计)", "text": "预计到达莫斯科", "done": false }
+    ]
+  },
+  "WB20250615": {
+    "trackingNo": "WB20250615",
+    "from": "广州 Guangzhou",
+    "to": "哈萨克斯坦 Kazakhstan",
+    "status": "delivered",
+    "statusText": "已签收",
+    "transportType": "散货拼车",
+    "weight": "320kg",
+    "eta": "2025-07-03",
+    "origin": "义乌福田街道涌金大道B9号",
+    "timeline": [
+      { "time": "2025-06-15 10:00", "text": "已揽收，货物到达广州仓", "done": true },
+      { "time": "2025-06-17 14:20", "text": "海关报关完成，安排发运", "done": true },
+      { "time": "2025-06-19 06:00", "text": "货物出关，驶往霍尔果斯口岸", "done": true },
+      { "time": "2025-06-22 11:30", "text": "到达霍尔果斯口岸，通关中", "done": true },
+      { "time": "2025-06-24 09:00", "text": "已出关，进入哈萨克斯坦境内", "done": true },
+      { "time": "2025-07-03 16:00", "text": "✅ 货物已签收", "done": true }
+    ]
+  }
+}
