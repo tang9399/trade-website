@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>野莓国际物流</title>
+  <title>野莓国际物流 / Wildberry Logistics</title>
   <link rel="icon" href="./wildberry-logo.jpg" type="image/jpeg">
   <style>
     /* ===== Reset & Base ===== */
@@ -83,6 +83,35 @@
     .app-header .header-row {
       display: flex;
       align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+    
+    /* ===== Lang Toggle ===== */
+    .lang-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      background: rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 2px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .lang-toggle .lt-opt {
+      padding: 4px 8px;
+      border-radius: 14px;
+      color: rgba(255,255,255,0.6);
+      transition: all 0.25s ease;
+    }
+    .lang-toggle .lt-opt.active {
+      color: #fff;
+      background: rgba(204,41,54,0.8);
     }
     
     /* ===== Main Content Area ===== */
@@ -329,9 +358,7 @@
     }
     .track-input-group button:active { background: var(--red-dark); }
     
-    .track-result {
-      display: none;
-    }
+    .track-result { display: none; }
     .track-result.show { display: block; }
     .track-timeline {
       position: relative;
@@ -442,10 +469,7 @@
       transition: opacity 0.2s;
     }
     .rate-form .btn-calc:active { opacity: 0.85; }
-    .rate-result {
-      display: none;
-      margin-top: 16px;
-    }
+    .rate-result { display: none; margin-top: 16px; }
     .rate-result.show { display: block; }
     .rate-result .rr-box {
       background: linear-gradient(135deg, #f8f4f0, #fff);
@@ -478,9 +502,7 @@
     }
     
     /* ===== Routes Page ===== */
-    .route-group {
-      margin-bottom: 14px;
-    }
+    .route-group { margin-bottom: 14px; }
     .route-group-header {
       font-size: 14px;
       font-weight: 600;
@@ -625,26 +647,12 @@
     .contact-item .ci-icon.address { background: #eef3f8; }
     .contact-item .ci-icon.wechat { background: #eef3f8; }
     .contact-item .ci-info { flex: 1; }
-    .contact-item .ci-label {
-      font-size: 12px;
-      color: var(--text-light);
-    }
-    .contact-item .ci-value {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .contact-item .ci-arrow {
-      color: #ccc;
-      font-size: 18px;
-    }
+    .contact-item .ci-label { font-size: 12px; color: var(--text-light); }
+    .contact-item .ci-value { font-size: 14px; font-weight: 600; color: var(--text); }
+    .contact-item .ci-arrow { color: #ccc; font-size: 18px; }
     
     /* ===== About Section ===== */
-    .about-text {
-      font-size: 13px;
-      line-height: 1.8;
-      color: var(--text);
-    }
+    .about-text { font-size: 13px; line-height: 1.8; color: var(--text); }
     .about-text p { margin-bottom: 8px; }
     
     /* ===== Route badges ===== */
@@ -707,7 +715,11 @@
   <header class="app-header">
     <div class="header-row">
       <img src="./wildberry-logo.jpg" alt="野莓国际" class="header-logo" id="headerLogo">
-      <h1>野莓国际物流</h1>
+      <h1 id="headerTitle" data-i18n="headerTitle">野莓国际物流</h1>
+    </div>
+    <div class="lang-toggle" onclick="toggleLang()">
+      <span class="lt-opt active" data-lang="zh">中文</span>
+      <span class="lt-opt" data-lang="ru">РУС</span>
     </div>
   </header>
 
@@ -716,129 +728,125 @@
     
     <!-- ===== Page: Home ===== -->
     <div class="page active" id="page-home">
-      <!-- Hero -->
       <div class="hero">
         <img src="./wildberry-logo.jpg" alt="野莓国际" class="hero-logo" id="heroLogo">
-        <h2>野莓国际</h2>
+        <h2 data-i18n="heroTitle">野莓国际</h2>
         <div class="subtitle">WILDBERRY INTERNATIONAL</div>
-        <div class="tagline">
-          中俄 · 中亚国际物流专线<br>
-          <span>🚂 铁路运输</span>
-          <span>🚛 公路运输</span>
-          <span>📦 散货拼车</span>
+        <div class="tagline" id="heroTagline">
+          <span data-i18n="tagline1">中俄 · 中亚国际物流专线</span><br>
+          <span>🚂 <span data-i18n="rail">铁路运输</span></span>
+          <span>🚛 <span data-i18n="road">公路运输</span></span>
+          <span>📦 <span data-i18n="lcl">散货拼车</span></span>
         </div>
       </div>
 
-      <!-- Quick Nav -->
       <div class="quick-grid">
         <div class="quick-item tracking" onclick="switchTab(1)">
           <span class="qi-icon">📦</span>
-          <div class="qi-label">运单查询</div>
-          <div class="qi-desc">实时追踪货物</div>
+          <div class="qi-label" data-i18n="quickTrack">运单查询</div>
+          <div class="qi-desc" data-i18n="quickTrackDesc">实时追踪货物</div>
         </div>
         <div class="quick-item rates" onclick="switchTab(2)">
           <span class="qi-icon">💰</span>
-          <div class="qi-label">运费估算</div>
-          <div class="qi-desc">快速了解运费</div>
+          <div class="qi-label" data-i18n="quickRates">运费估算</div>
+          <div class="qi-desc" data-i18n="quickRatesDesc">快速了解运费</div>
         </div>
         <div class="quick-item routes" onclick="switchTab(3)">
           <span class="qi-icon">🌍</span>
-          <div class="qi-label">国际线路</div>
-          <div class="qi-desc">查看运输路线</div>
+          <div class="qi-label" data-i18n="quickRoutes">国际线路</div>
+          <div class="qi-desc" data-i18n="quickRoutesDesc">查看运输路线</div>
         </div>
         <div class="quick-item contact" onclick="switchTab(4)">
           <span class="qi-icon">📞</span>
-          <div class="qi-label">联系我们</div>
-          <div class="qi-desc">咨询与合作</div>
+          <div class="qi-label" data-i18n="quickContact">联系我们</div>
+          <div class="qi-desc" data-i18n="quickContactDesc">咨询与合作</div>
         </div>
       </div>
 
-      <!-- Company Intro -->
       <div class="card">
-        <div class="card-title"><span class="icon">🏢</span> 关于野莓国际</div>
+        <div class="card-title"><span class="icon">🏢</span> <span data-i18n="aboutTitle">关于野莓国际</span></div>
         <div class="about-text">
-          <p><strong>野莓国际物流</strong> 专注中国至俄罗斯、中亚五国的国际物流运输服务。总部深耕跨境运输多年，拥有成熟的铁路、公路及散货拼车网络。</p>
-          <p>📍 公司地址：<strong>义乌福田街道涌金大道B9号</strong></p>
-          <p>核心优势线路：<strong>义乌 ↔ 中亚/莫斯科</strong>、<strong>广州 ↔ 中亚/莫斯科</strong>，满洲里口岸白关散货拼车，高效通关，安全可靠。</p>
-          <p>中亚 7-12天 · 俄罗斯 18-35天，为您提供灵活、高性价比的国际物流解决方案。</p>
+          <p><strong data-i18n="companyName">野莓国际物流</strong> <span data-i18n="aboutP1">专注中国至俄罗斯、中亚五国的国际物流运输服务。总部深耕跨境运输多年，拥有成熟的铁路、公路及散货拼车网络。</span></p>
+          <p><span data-i18n="addressLabel">📍 公司地址：</span><strong data-i18n="address">义乌福田街道涌金大道B9号</strong></p>
+          <p><span data-i18n="aboutP2">核心优势线路：</span><strong data-i18n="route1">义乌 ↔ 中亚/莫斯科</strong>、<strong data-i18n="route2">广州 ↔ 中亚/莫斯科</strong><span data-i18n="aboutP2b">，满洲里口岸白关散货拼车，高效通关，安全可靠。</span></p>
+          <p><span data-i18n="aboutP3">中亚 7-12天 · 俄罗斯 18-35天，为您提供灵活、高性价比的国际物流解决方案。</span></p>
         </div>
       </div>
 
-      <!-- Service Highlights -->
       <div class="service-highlight">
-        <h3>🚂 满洲里白关 · 散货拼车</h3>
-        <p>正规报关，灵活拼柜，适合小批量货物。满洲里口岸快速通关，直达俄罗斯及中亚市场。</p>
+        <h3>🚂 <span data-i18n="serviceTitle">满洲里白关 · 散货拼车</span></h3>
+        <p data-i18n="serviceDesc">正规报关，灵活拼柜，适合小批量货物。满洲里口岸快速通关，直达俄罗斯及中亚市场。</p>
       </div>
     </div>
 
     <!-- ===== Page: Tracking ===== -->
     <div class="page" id="page-tracking">
-      <div class="section-title">📦 运单查询</div>
+      <div class="section-title">📦 <span data-i18n="trackTitle">运单查询</span></div>
       <div class="card">
         <div class="track-input-group">
-          <input type="text" id="trackInput" placeholder="请输入运单号" maxlength="20" autocomplete="off">
-          <button onclick="searchTracking()">查询</button>
+          <input type="text" id="trackInput" data-i18n-placeholder="trackPlaceholder" placeholder="请输入运单号" maxlength="20" autocomplete="off">
+          <button id="trackBtn" onclick="searchTracking()" data-i18n="trackBtn">查询</button>
         </div>
-        <div style="font-size:12px;color:#999;margin-bottom:4px;">示例运单：WB20250701、WB20250615</div>
+        <div style="font-size:12px;color:#999;margin-bottom:4px;" data-i18n="trackExample">示例运单：WB20250701、WB20250615</div>
       </div>
       <div class="track-result" id="trackResult">
         <div class="track-info" id="trackInfo"></div>
         <div class="card">
-          <div class="card-title" style="font-size:14px;">📍 物流轨迹</div>
+          <div class="card-title" style="font-size:14px;">📍 <span data-i18n="trackTimelineTitle">物流轨迹</span></div>
           <div class="track-timeline" id="trackTimeline"></div>
         </div>
       </div>
       <div id="trackEmpty" style="text-align:center;padding:40px 0;color:#bbb;font-size:14px;">
-        📋 输入运单号查询货物状态
+        📋 <span data-i18n="trackEmpty">输入运单号查询货物状态</span>
       </div>
     </div>
 
     <!-- ===== Page: Rates ===== -->
     <div class="page" id="page-rates">
-      <div class="section-title">💰 运费估算</div>
+      <div class="section-title">💰 <span data-i18n="ratesTitle">运费估算</span></div>
       <div class="card">
-        <p style="font-size:13px;color:var(--text-light);margin-bottom:14px;">选择发货地与目的地，估算参考运费（实际费用以确认为准）</p>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:14px;" data-i18n="ratesDesc">选择发货地与目的地，估算参考运费（实际费用以确认为准）</p>
         <div class="rate-form" id="rateForm">
           <div class="form-group">
-            <label>📤 发货地</label>
+            <label>📤 <span data-i18n="rateFrom">发货地</span></label>
             <select id="rateFrom">
-              <option value="">请选择发货地</option>
+              <option value="" data-i18n="rateFromPlaceholder">请选择发货地</option>
               <option value="义乌">义乌 Yiwu</option>
               <option value="广州">广州 Guangzhou</option>
             </select>
           </div>
           <div class="form-group">
-            <label>📥 目的地</label>
+            <label>📥 <span data-i18n="rateTo">目的地</span></label>
             <select id="rateTo">
-              <option value="">请选择目的地</option>
-              <option value="哈萨克斯坦">哈萨克斯坦 Kazakhstan</option>
-              <option value="吉尔吉斯斯坦">吉尔吉斯斯坦 Kyrgyzstan</option>
-              <option value="塔吉克斯坦">塔吉克斯坦 Tajikistan</option>
-              <option value="乌兹别克斯坦">乌兹别克斯坦 Uzbekistan</option>
-              <option value="土库曼斯坦">土库曼斯坦 Turkmenistan</option>
-              <option value="莫斯科">莫斯科 Moscow</option>
+              <option value="" data-i18n="rateToPlaceholder">请选择目的地</option>
+              <option value="哈萨克斯坦" data-i18n="destKZ">哈萨克斯坦 Kazakhstan</option>
+              <option value="吉尔吉斯斯坦" data-i18n="destKG">吉尔吉斯斯坦 Kyrgyzstan</option>
+              <option value="塔吉克斯坦" data-i18n="destTJ">塔吉克斯坦 Tajikistan</option>
+              <option value="乌兹别克斯坦" data-i18n="destUZ">乌兹别克斯坦 Uzbekistan</option>
+              <option value="土库曼斯坦" data-i18n="destTM">土库曼斯坦 Turkmenistan</option>
+              <option value="莫斯科" data-i18n="destMoscow">莫斯科 Moscow</option>
             </select>
           </div>
           <div class="form-group">
-            <label>📦 货物类型</label>
+            <label>📦 <span data-i18n="cargoType">货物类型</span></label>
             <select id="rateType">
-              <option value="散货">散货拼车 (LCL)</option>
-              <option value="整柜">整柜 (FCL)</option>
+              <option value="散货" data-i18n="cargoLCL">散货拼车 (LCL)</option>
+              <option value="整柜" data-i18n="cargoFCL">整柜 (FCL)</option>
             </select>
           </div>
           <div class="form-group">
-            <label>⚖️ 估算重量 (kg)</label>
-            <input type="number" id="rateWeight" placeholder="请输入货物重量" min="1" value="100">
+            <label>⚖️ <span data-i18n="weightLabel">估算重量 (kg)</span></label>
+            <input type="number" id="rateWeight" data-i18n-placeholder="weightPlaceholder" placeholder="请输入货物重量" min="1" value="100">
           </div>
-          <button class="btn-calc" onclick="calculateRate()">🚀 估算运费</button>
+          <button class="btn-calc" onclick="calculateRate()">🚀 <span data-i18n="calcBtn">估算运费</span></button>
         </div>
         <div class="rate-result" id="rateResult">
           <div class="rr-box">
-            <div style="font-size:13px;color:var(--text-light);margin-bottom:6px;">参考运费</div>
+            <div style="font-size:13px;color:var(--text-light);margin-bottom:6px;" data-i18n="refPrice">参考运费</div>
             <div class="rr-amount" id="rrAmount">¥0</div>
-            <div class="rr-unit" id="rrUnit">/ 参考价 · 含报关</div>
+            <div class="rr-unit" id="rrUnit" data-i18n="refUnit">/ 参考价 · 含报关</div>
             <div class="rr-details" id="rrDetails"></div>
-            <div class="rr-note">* 实际运费以货物详情和确认为准</div>
+            <div class="rr-note" data-i18n="rateNote">* 实际运费以货物详情和确认为准</div>
           </div>
         </div>
       </div>
@@ -846,111 +854,107 @@
 
     <!-- ===== Page: Routes ===== -->
     <div class="page" id="page-routes">
-      <div class="section-title">🌍 国际线路</div>
+      <div class="section-title">🌍 <span data-i18n="routesTitle">国际线路</span></div>
 
-      <!-- East / West -->
       <div class="card" style="display:flex;gap:12px;padding:14px;text-align:center;">
         <div style="flex:1;background:linear-gradient(135deg,#fde8e8,#fff);border-radius:10px;padding:12px;">
           <div style="font-size:24px;">🌅</div>
-          <div style="font-size:14px;font-weight:600;color:var(--red);">西线</div>
-          <div style="font-size:12px;color:var(--text-light);">18-25 天</div>
+          <div style="font-size:14px;font-weight:600;color:var(--red);" data-i18n="westLine">西线</div>
+          <div style="font-size:12px;color:var(--text-light);">18-25 <span data-i18n="days">天</span></div>
         </div>
         <div style="flex:1;background:linear-gradient(135deg,#e8f0fd,#fff);border-radius:10px;padding:12px;">
           <div style="font-size:24px;">🌄</div>
-          <div style="font-size:14px;font-weight:600;color:var(--blue);">东线</div>
-          <div style="font-size:12px;color:var(--text-light);">28-35 天</div>
+          <div style="font-size:14px;font-weight:600;color:var(--blue);" data-i18n="eastLine">东线</div>
+          <div style="font-size:12px;color:var(--text-light);">28-35 <span data-i18n="days">天</span></div>
         </div>
       </div>
 
-      <!-- Russia Routes -->
       <div class="route-group">
-        <div class="route-group-header">🇷🇺 俄罗斯线路</div>
+        <div class="route-group-header">🇷🇺 <span data-i18n="routesRussia">俄罗斯线路</span></div>
         <div class="route-card" style="border-left-color:var(--red);">
-          <div class="rc-route">义乌 <span class="arrow">→</span> 莫斯科</div>
+          <div class="rc-route">义乌 <span class="arrow">→</span> <span data-i18n="moscow">莫斯科</span></div>
           <div class="rc-meta">
-            <span class="tag express">西线 18-25天</span>
-            <span class="tag standard">东线 28-35天</span>
+            <span class="tag express" data-i18n="westTag">西线 18-25天</span>
+            <span class="tag standard" data-i18n="eastTag">东线 28-35天</span>
           </div>
-          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong> · 铁路/公路</div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>18-35 <span data-i18n="days">天</span></strong> · 🚂 <span data-i18n="railRoad">铁路/公路</span></div>
         </div>
         <div class="route-card" style="border-left-color:var(--red);">
-          <div class="rc-route">广州 <span class="arrow">→</span> 莫斯科</div>
+          <div class="rc-route">广州 <span class="arrow">→</span> <span data-i18n="moscow">莫斯科</span></div>
           <div class="rc-meta">
-            <span class="tag express">西线 18-25天</span>
-            <span class="tag standard">东线 28-35天</span>
+            <span class="tag express" data-i18n="westTag">西线 18-25天</span>
+            <span class="tag standard" data-i18n="eastTag">东线 28-35天</span>
           </div>
-          <div class="rc-time">🕐 预计时效：<strong>18-35天</strong> · 铁路/公路</div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>18-35 <span data-i18n="days">天</span></strong> · 🚂 <span data-i18n="railRoad">铁路/公路</span></div>
         </div>
       </div>
 
-      <!-- Central Asia Routes -->
       <div class="route-group">
-        <div class="route-group-header">🌏 中亚五国线路</div>
+        <div class="route-group-header">🌏 <span data-i18n="routesCA">中亚五国线路</span></div>
         <div class="route-card">
-          <div class="rc-route">义乌 <span class="arrow">→</span> 哈萨克斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">义乌 <span class="arrow">→</span> <span data-i18n="destKZ">哈萨克斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">义乌 <span class="arrow">→</span> 吉尔吉斯斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">义乌 <span class="arrow">→</span> <span data-i18n="destKG">吉尔吉斯斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">义乌 <span class="arrow">→</span> 塔吉克斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">义乌 <span class="arrow">→</span> <span data-i18n="destTJ">塔吉克斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">义乌 <span class="arrow">→</span> 乌兹别克斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">义乌 <span class="arrow">→</span> <span data-i18n="destUZ">乌兹别克斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">义乌 <span class="arrow">→</span> 土库曼斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">义乌 <span class="arrow">→</span> <span data-i18n="destTM">土库曼斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">广州 <span class="arrow">→</span> 哈萨克斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">广州 <span class="arrow">→</span> <span data-i18n="destKZ">哈萨克斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">广州 <span class="arrow">→</span> 吉尔吉斯斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">广州 <span class="arrow">→</span> <span data-i18n="destKG">吉尔吉斯斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">广州 <span class="arrow">→</span> 塔吉克斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">广州 <span class="arrow">→</span> <span data-i18n="destTJ">塔吉克斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">广州 <span class="arrow">→</span> 乌兹别克斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">广州 <span class="arrow">→</span> <span data-i18n="destUZ">乌兹别克斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
         <div class="route-card">
-          <div class="rc-route">广州 <span class="arrow">→</span> 土库曼斯坦</div>
-          <div class="rc-time">🕐 预计时效：<strong>7-12天</strong></div>
+          <div class="rc-route">广州 <span class="arrow">→</span> <span data-i18n="destTM">土库曼斯坦</span></div>
+          <div class="rc-time">🕐 <span data-i18n="eta">预计时效：</span><strong>7-12 <span data-i18n="days">天</span></strong></div>
         </div>
       </div>
 
-      <!-- Service Highlight -->
       <div class="service-highlight">
-        <h3>🛤️ 满洲里口岸 · 白关散货拼车</h3>
-        <p>正规报关、灵活拼柜、高效通关。一条龙服务，小批量也能享受整柜价格优势。</p>
+        <h3>🛤️ <span data-i18n="serviceTitle2">满洲里口岸 · 白关散货拼车</span></h3>
+        <p data-i18n="serviceDesc2">正规报关、灵活拼柜、高效通关。一条龙服务，小批量也能享受整柜价格优势。</p>
       </div>
     </div>
 
     <!-- ===== Page: Contact ===== -->
     <div class="page" id="page-contact">
-      <div class="section-title">📞 联系我们</div>
+      <div class="section-title">📞 <span data-i18n="contactTitle">联系我们</span></div>
       
       <div class="contact-card">
         <img src="./wildberry-logo.jpg" alt="野莓国际" class="cc-logo" id="contactLogo">
         <div class="cc-name">野莓国际物流</div>
         <div class="cc-en">WILDBERRY INTERNATIONAL</div>
-        <div style="font-size:12px;color:var(--text-light);">专注中俄 · 中亚国际物流</div>
+        <div style="font-size:12px;color:var(--text-light);" data-i18n="contactFocus">专注中俄 · 中亚国际物流</div>
       </div>
 
       <a href="tel:15990731636" style="color:inherit;text-decoration:none;display:block;">
         <div class="contact-item">
           <div class="ci-icon phone">📞</div>
           <div class="ci-info">
-            <div class="ci-label">联系电话</div>
+            <div class="ci-label" data-i18n="phoneLabel">联系电话</div>
             <div class="ci-value">15990731636</div>
           </div>
           <div class="ci-arrow">›</div>
@@ -971,8 +975,8 @@
       <div class="contact-item" style="cursor:default;">
         <div class="ci-icon address">📍</div>
         <div class="ci-info">
-          <div class="ci-label">公司地址</div>
-          <div class="ci-value" style="font-size:13px;">义乌福田街道涌金大道B9号</div>
+          <div class="ci-label" data-i18n="addrLabel">公司地址</div>
+          <div class="ci-value" style="font-size:13px;" data-i18n="address">义乌福田街道涌金大道B9号</div>
         </div>
         <div style="font-size:11px;color:var(--text-light);">野莓国际</div>
       </div>
@@ -980,17 +984,17 @@
       <div class="contact-item" onclick="copyText('15990731636')">
         <div class="ci-icon wechat">💚</div>
         <div class="ci-info">
-          <div class="ci-label">微信 / 同号</div>
+          <div class="ci-label">微信 / WeChat</div>
           <div class="ci-value">15990731636</div>
         </div>
         <div class="ci-arrow">📋</div>
       </div>
 
       <div class="card" style="margin-top:4px;">
-        <div class="card-title" style="font-size:14px;">📍 服务时间</div>
+        <div class="card-title" style="font-size:14px;">📍 <span data-i18n="hoursTitle">服务时间</span></div>
         <div style="font-size:13px;color:var(--text);line-height:1.8;">
-          <div>周一至周六 09:00 - 18:00</div>
-          <div style="font-size:12px;color:var(--text-light);margin-top:4px;">非工作时间请留言，我们会尽快回复</div>
+          <div data-i18n="hoursWeek">周一至周六 09:00 - 18:00</div>
+          <div style="font-size:12px;color:var(--text-light);margin-top:4px;" data-i18n="hoursNote">非工作时间请留言，我们会尽快回复</div>
         </div>
       </div>
     </div>
@@ -1001,36 +1005,321 @@
   <nav class="tab-bar" id="tabBar">
     <div class="tab-item active" data-tab="0" onclick="switchTab(0)">
       <span class="tab-icon">🏠</span>
-      <span class="tab-label">首页</span>
+      <span class="tab-label" data-i18n="tabHome">首页</span>
     </div>
     <div class="tab-item" data-tab="1" onclick="switchTab(1)">
       <span class="tab-icon">📦</span>
-      <span class="tab-label">运单查询</span>
+      <span class="tab-label" data-i18n="tabTrack">运单查询</span>
     </div>
     <div class="tab-item" data-tab="2" onclick="switchTab(2)">
       <span class="tab-icon">💰</span>
-      <span class="tab-label">运费估算</span>
+      <span class="tab-label" data-i18n="tabRates">运费估算</span>
     </div>
     <div class="tab-item" data-tab="3" onclick="switchTab(3)">
       <span class="tab-icon">🌍</span>
-      <span class="tab-label">国际线路</span>
+      <span class="tab-label" data-i18n="tabRoutes">国际线路</span>
     </div>
     <div class="tab-item" data-tab="4" onclick="switchTab(4)">
       <span class="tab-icon">📞</span>
-      <span class="tab-label">联系我们</span>
+      <span class="tab-label" data-i18n="tabContact">联系我们</span>
     </div>
   </nav>
 </div>
 
 <script>
 // ============================================
-// 野莓国际物流 - API 配置
+// 🌐 中俄双语翻译表
 // ============================================
-// 修改下方 API_BASE_URL 即可切换后端
-// 不设置 = 使用本地模拟数据，设置 = 调用真实 API
-const API_BASE_URL = ''; // 例如: 'https://wildberry-api.vercel.app'
+const i18n = {
+  'zh': {
+    // Header
+    headerTitle: '野莓国际物流',
+    // Tabs
+    tabHome: '首页',
+    tabTrack: '运单查询',
+    tabRates: '运费估算',
+    tabRoutes: '国际线路',
+    tabContact: '联系我们',
+    // Home
+    heroTitle: '野莓国际',
+    tagline1: '中俄 · 中亚国际物流专线',
+    rail: '铁路运输',
+    road: '公路运输',
+    lcl: '散货拼车',
+    quickTrack: '运单查询',
+    quickTrackDesc: '实时追踪货物',
+    quickRates: '运费估算',
+    quickRatesDesc: '快速了解运费',
+    quickRoutes: '国际线路',
+    quickRoutesDesc: '查看运输路线',
+    quickContact: '联系我们',
+    quickContactDesc: '咨询与合作',
+    aboutTitle: '关于野莓国际',
+    companyName: '野莓国际物流',
+    aboutP1: '专注中国至俄罗斯、中亚五国的国际物流运输服务。总部深耕跨境运输多年，拥有成熟的铁路、公路及散货拼车网络。',
+    addressLabel: '📍 公司地址：',
+    address: '义乌福田街道涌金大道B9号',
+    aboutP2: '核心优势线路：',
+    route1: '义乌 ↔ 中亚/莫斯科',
+    route2: '广州 ↔ 中亚/莫斯科',
+    aboutP2b: '，满洲里口岸白关散货拼车，高效通关，安全可靠。',
+    aboutP3: '中亚 7-12天 · 俄罗斯 18-35天，为您提供灵活、高性价比的国际物流解决方案。',
+    serviceTitle: '满洲里白关 · 散货拼车',
+    serviceDesc: '正规报关，灵活拼柜，适合小批量货物。满洲里口岸快速通关，直达俄罗斯及中亚市场。',
+    // Tracking
+    trackTitle: '运单查询',
+    trackPlaceholder: '请输入运单号',
+    trackBtn: '查询',
+    trackExample: '示例运单：WB20250701、WB20250615',
+    trackTimelineTitle: '物流轨迹',
+    trackEmpty: '输入运单号查询货物状态',
+    trackSearching: '⏳ 查询中...',
+    trackNotFound: '❌ 未找到该运单，请核对运单号',
+    trackNoInput: '📋 请输入运单号',
+    // Tracking dynamic labels
+    tracking_no: '运单号',
+    tracking_route: '线路',
+    tracking_status: '状态',
+    tracking_type: '运输方式',
+    tracking_weight: '货物重量',
+    tracking_eta: '预计到达',
+    inTransit: '运输中',
+    delivered: '已签收',
+    // Rates
+    ratesTitle: '运费估算',
+    ratesDesc: '选择发货地与目的地，估算参考运费（实际费用以确认为准）',
+    rateFrom: '发货地',
+    rateFromPlaceholder: '请选择发货地',
+    rateTo: '目的地',
+    rateToPlaceholder: '请选择目的地',
+    destKZ: '哈萨克斯坦',
+    destKG: '吉尔吉斯斯坦',
+    destTJ: '塔吉克斯坦',
+    destUZ: '乌兹别克斯坦',
+    destTM: '土库曼斯坦',
+    destMoscow: '莫斯科',
+    cargoType: '货物类型',
+    cargoLCL: '散货拼车 (LCL)',
+    cargoFCL: '整柜 (FCL)',
+    weightLabel: '估算重量 (kg)',
+    weightPlaceholder: '请输入货物重量',
+    calcBtn: '估算运费',
+    refPrice: '参考运费',
+    refUnit: '/ 参考价 · 含报关',
+    rateNote: '* 实际运费以货物详情和确认为准',
+    routeMoscow1: '🚂 莫斯科线路：西线18-25天 / 东线28-35天',
+    routeCA1: '🚂 中亚线路：预计7-12天',
+    rateDetailNote: '* 含基本报关费，不含关税及特殊操作费',
+    // Routes
+    routesTitle: '国际线路',
+    westLine: '西线',
+    eastLine: '东线',
+    days: '天',
+    routesRussia: '俄罗斯线路',
+    routesCA: '中亚五国线路',
+    moscow: '莫斯科',
+    westTag: '西线 18-25天',
+    eastTag: '东线 28-35天',
+    eta: '预计时效：',
+    railRoad: '铁路/公路',
+    serviceTitle2: '满洲里口岸 · 白关散货拼车',
+    serviceDesc2: '正规报关、灵活拼柜、高效通关。一条龙服务，小批量也能享受整柜价格优势。',
+    // Contact
+    contactTitle: '联系我们',
+    contactFocus: '专注中俄 · 中亚国际物流',
+    phoneLabel: '联系电话',
+    addrLabel: '公司地址',
+    hoursTitle: '服务时间',
+    hoursWeek: '周一至周六 09:00 - 18:00',
+    hoursNote: '非工作时间请留言，我们会尽快回复',
+    // Toast
+    copied: '已复制: ',
+    copyFailed: '复制失败，请手动复制: ',
+    // Alert
+    selectFromTo: '请选择发货地和目的地',
+    inputWeight: '请输入有效重量',
+  },
+  'ru': {
+    // Header
+    headerTitle: 'Wildberry Logistics',
+    // Tabs
+    tabHome: 'Главная',
+    tabTrack: 'Отслеживание',
+    tabRates: 'Расчет ставок',
+    tabRoutes: 'Маршруты',
+    tabContact: 'Контакты',
+    // Home
+    heroTitle: 'Wildberry',
+    tagline1: 'Китай-Россия · Международная логистика ЦА',
+    rail: 'Ж/Д перевозки',
+    road: 'Автоперевозки',
+    lcl: 'Сборные грузы',
+    quickTrack: 'Отслеживание',
+    quickTrackDesc: 'Отслеживание груза',
+    quickRates: 'Расчет ставок',
+    quickRatesDesc: 'Быстрый расчет',
+    quickRoutes: 'Маршруты',
+    quickRoutesDesc: 'Посмотреть маршруты',
+    quickContact: 'Контакты',
+    quickContactDesc: 'Консультация',
+    aboutTitle: 'О компании',
+    companyName: 'Wildberry Logistics',
+    aboutP1: 'Специализируемся на международных грузоперевозках из Китая в Россию и страны Центральной Азии. Надежная сеть Ж/Д, авто и сборных грузов.',
+    addressLabel: '📍 Адрес: ',
+    address: 'Yiwu, Futian, Yongjin Ave B9',
+    aboutP2: 'Ключевые маршруты: ',
+    route1: 'Иу ↔ ЦА/Москва',
+    route2: 'Гуанчжоу ↔ ЦА/Москва',
+    aboutP2b: ', Маньчжурия — «белое» таможенное оформление сборных грузов.',
+    aboutP3: 'ЦА 7-12 дн. · Россия 18-35 дн. Гибкие и выгодные логистические решения.',
+    serviceTitle: 'Маньчжурия · Сборные грузы',
+    serviceDesc: 'Официальное таможенное оформление, гибкая консолидация. Подходит для небольших партий. Быстрое прохождение границы.',
+    // Tracking
+    trackTitle: 'Отслеживание',
+    trackPlaceholder: 'Введите номер накладной',
+    trackBtn: 'Найти',
+    trackExample: 'Примеры: WB20250701, WB20250615',
+    trackTimelineTitle: 'Маршрут груза',
+    trackEmpty: 'Введите номер накладной',
+    trackSearching: '⏳ Поиск...',
+    trackNotFound: '❌ Накладная не найдена',
+    trackNoInput: '📋 Введите номер накладной',
+    tracking_no: 'Накладная',
+    tracking_route: 'Маршрут',
+    tracking_status: 'Статус',
+    tracking_type: 'Тип перевозки',
+    tracking_weight: 'Вес груза',
+    tracking_eta: 'Ожидаемая дата',
+    inTransit: 'В пути',
+    delivered: 'Доставлен',
+    // Rates
+    ratesTitle: 'Расчет ставок',
+    ratesDesc: 'Выберите пункты отправления и назначения для расчета (фактическая стоимость подтверждается)',
+    rateFrom: 'Отправление',
+    rateFromPlaceholder: 'Выберите город',
+    rateTo: 'Назначение',
+    rateToPlaceholder: 'Выберите направление',
+    destKZ: 'Казахстан',
+    destKG: 'Кыргызстан',
+    destTJ: 'Таджикистан',
+    destUZ: 'Узбекистан',
+    destTM: 'Туркменистан',
+    destMoscow: 'Москва',
+    cargoType: 'Тип груза',
+    cargoLCL: 'Сборный (LCL)',
+    cargoFCL: 'Контейнер (FCL)',
+    weightLabel: 'Вес (кг)',
+    weightPlaceholder: 'Введите вес груза',
+    calcBtn: 'Рассчитать',
+    refPrice: 'Расчетная ставка',
+    refUnit: '/ цена · с оформлением',
+    rateNote: '* Фактическая стоимость подтверждается',
+    routeMoscow1: '🚂 Москва: Зап. маршрут 18-25 дн. / Вост. маршрут 28-35 дн.',
+    routeCA1: '🚂 ЦА: ориентировочно 7-12 дн.',
+    rateDetailNote: '* Включает базовое оформление, без пошлин и спецопераций',
+    // Routes
+    routesTitle: 'Маршруты',
+    westLine: 'Западный',
+    eastLine: 'Восточный',
+    days: 'дн.',
+    routesRussia: 'Россия',
+    routesCA: 'Центральная Азия (5 стран)',
+    moscow: 'Москва',
+    westTag: 'Зап. 18-25 дн.',
+    eastTag: 'Вост. 28-35 дн.',
+    eta: 'Срок: ',
+    railRoad: 'Ж/Д · Авто',
+    serviceTitle2: 'Маньчжурия · Сборные грузы',
+    serviceDesc2: 'Официальное оформление, гибкая консолидация, быстрая таможня. Выгодно даже для малых партий.',
+    // Contact
+    contactTitle: 'Контакты',
+    contactFocus: 'Логистика Китай-Россия · ЦА',
+    phoneLabel: 'Телефон',
+    addrLabel: 'Адрес',
+    hoursTitle: 'Часы работы',
+    hoursWeek: 'Пн-Сб 09:00 - 18:00',
+    hoursNote: 'В нерабочее время — оставьте сообщение',
+    // Toast
+    copied: 'Скопировано: ',
+    copyFailed: 'Ошибка копирования, скопируйте вручную: ',
+    // Alert
+    selectFromTo: 'Выберите пункты отправления и назначения',
+    inputWeight: 'Введите корректный вес',
+  }
+};
 
-// ===== Tab Switching =====
+// ===== Current language =====
+let currentLang = 'zh';
+
+// ===== Apply translations =====
+function applyLang(lang) {
+  currentLang = lang;
+  const t = i18n[lang];
+  
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) {
+      el.textContent = t[key];
+    }
+  });
+  
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key]) {
+      el.placeholder = t[key];
+    }
+  });
+  
+  // Update <option> elements within selects
+  document.querySelectorAll('option[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) {
+      el.textContent = t[key];
+    }
+  });
+  
+  // Update toggle button styling
+  document.querySelectorAll('.lang-toggle .lt-opt').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+  });
+  
+  // Update page title
+  document.title = lang === 'zh' ? '野莓国际物流 / Wildberry Logistics' : 'Wildberry Logistics / 野莓国际物流';
+
+  // If tracking result is visible, update dynamic labels
+  const trackResult = document.getElementById('trackResult');
+  if (trackResult.classList.contains('show')) {
+    updateTrackResultLang();
+  }
+}
+
+// ===== Toggle language =====
+function toggleLang() {
+  const newLang = currentLang === 'zh' ? 'ru' : 'zh';
+  applyLang(newLang);
+}
+
+// ===== Update tracking result labels on language switch =====
+function updateTrackResultLang() {
+  const t = i18n[currentLang];
+  const infoDiv = document.getElementById('trackInfo');
+  const rows = infoDiv.querySelectorAll('.ti-row');
+  if (rows.length >= 6) {
+    const labels = ['tracking_no', 'tracking_route', 'tracking_status', 'tracking_type', 'tracking_weight', 'tracking_eta'];
+    rows.forEach((row, i) => {
+      if (i < labels.length && t[labels[i]]) {
+        const labelSpan = row.querySelector('.label');
+        if (labelSpan) labelSpan.textContent = t[labels[i]];
+      }
+    });
+  }
+}
+
+// ============================================
+// Tab Switching (keep same as original)
+// ============================================
 const pages = ['page-home', 'page-tracking', 'page-rates', 'page-routes', 'page-contact'];
 const tabItems = document.querySelectorAll('.tab-item');
 const mainContent = document.getElementById('mainContent');
@@ -1047,9 +1336,18 @@ function switchTab(index) {
 }
 
 // ============================================
-// API 调用工具函数（自动降级到本地数据）
+// API Configuration
 // ============================================
-const API_TIMEOUT = 5000; // 5秒超时
+const API_BASE_URL = '';
+
+function getI18n(key) {
+  return i18n[currentLang][key] || key;
+}
+
+// ============================================
+// Tracking - переведенные статусы в динамике
+// ============================================
+const API_TIMEOUT = 5000;
 
 async function apiCall(endpoint, method, body) {
   try {
@@ -1064,61 +1362,100 @@ async function apiCall(endpoint, method, body) {
     if (!res.ok) return null;
     return await res.json();
   } catch (e) {
-    console.log('API 不可用，使用本地数据:', e.message);
+    console.log('API unavailable:', e.message);
     return null;
   }
 }
 
-// ===== 本地运单数据 =====
 const trackingDB = {
   'WB20250701': {
     no: 'WB20250701',
     from: '义乌 Yiwu',
-    to: '莫斯科 Moscow',
-    status: '运输中',
-    type: '铁路运输',
+    to: 'Москва Moscow',
+    statusKey: 'inTransit',
+    type: '🚂 Ж/Д',
     weight: '850kg',
-    eta: '预计 7月25日到达',
+    eta: '~25.07.2025',
     timeline: [
-      { time: '2025-07-01 14:30', text: '已揽收，货物到达义乌仓', done: true },
-      { time: '2025-07-03 09:15', text: '海关报关完成，等待发运', done: true },
-      { time: '2025-07-05 22:00', text: '货物已出关，运往满洲里口岸', done: true },
-      { time: '2025-07-08 16:40', text: '到达满洲里口岸，进行换装作业', done: true },
-      { time: '2025-07-10 08:00', text: '已出关，驶往莫斯科方向', done: false, current: true },
-      { time: '2025-07-25', text: '预计到达莫斯科', done: false }
+      { time: '2025-07-01 14:30', textKey: 'tl_wb1_1' },
+      { time: '2025-07-03 09:15', textKey: 'tl_wb1_2' },
+      { time: '2025-07-05 22:00', textKey: 'tl_wb1_3' },
+      { time: '2025-07-08 16:40', textKey: 'tl_wb1_4' },
+      { time: '2025-07-10 08:00', textKey: 'tl_wb1_5', current: true },
+      { time: '~25.07.2025', textKey: 'tl_wb1_6' }
     ]
   },
   'WB20250615': {
     no: 'WB20250615',
     from: '广州 Guangzhou',
-    to: '哈萨克斯坦 Kazakhstan',
-    status: '已签收',
-    type: '散货拼车',
+    to: 'Казахстан Kazakhstan',
+    statusKey: 'delivered',
+    type: '🚛 Сборный',
     weight: '320kg',
-    eta: '已签收',
+    eta: 'delivered',
     timeline: [
-      { time: '2025-06-15 10:00', text: '已揽收，货物到达广州仓', done: true },
-      { time: '2025-06-17 14:20', text: '海关报关完成，安排发运', done: true },
-      { time: '2025-06-19 06:00', text: '货物出关，驶往霍尔果斯口岸', done: true },
-      { time: '2025-06-22 11:30', text: '到达霍尔果斯口岸，通关中', done: true },
-      { time: '2025-06-24 09:00', text: '已出关，进入哈萨克斯坦境内', done: true },
-      { time: '2025-07-03 16:00', text: '✅ 货物已签收', done: true }
+      { time: '2025-06-15 10:00', textKey: 'tl_wb2_1' },
+      { time: '2025-06-17 14:20', textKey: 'tl_wb2_2' },
+      { time: '2025-06-19 06:00', textKey: 'tl_wb2_3' },
+      { time: '2025-06-22 11:30', textKey: 'tl_wb2_4' },
+      { time: '2025-06-24 09:00', textKey: 'tl_wb2_5' },
+      { time: '2025-07-03 16:00', textKey: 'tl_wb2_6', done: true }
     ]
   },
   '9399-W7671-0720-1': {
     no: '9399-W7671-0720-1',
     from: '义乌 Yiwu',
-    to: '莫斯科 Moscow',
-    status: '运输中',
-    type: '陆路运输',
+    to: 'Москва Moscow',
+    statusKey: 'inTransit',
+    type: '🚛 Авто',
     weight: '17kg',
-    eta: '预计 8月15日到达',
+    eta: '~15.08.2025',
     timeline: [
-      { time: '2025-07-18 18:00', text: '包装完成，等待发货', done: true },
-      { time: '2025-07-20 10:00', text: '已发货，从义乌出发', done: true, current: true },
-      { time: '2025-07-25', text: '预计到达霍尔果斯口岸', done: false },
-      { time: '2025-08-15 (预计)', text: '预计到达莫斯科', done: false }
+      { time: '2025-07-18 18:00', textKey: 'tl_wb3_1' },
+      { time: '2025-07-20 10:00', textKey: 'tl_wb3_2', current: true },
+      { time: '~25.07.2025', textKey: 'tl_wb3_3' },
+      { time: '~15.08.2025', textKey: 'tl_wb3_4' }
     ]
+  }
+};
+
+// Timeline text translations
+const tlTexts = {
+  'zh': {
+    tl_wb1_1: '已揽收，货物到达义乌仓',
+    tl_wb1_2: '海关报关完成，等待发运',
+    tl_wb1_3: '货物已出关，运往满洲里口岸',
+    tl_wb1_4: '到达满洲里口岸，进行换装作业',
+    tl_wb1_5: '已出关，驶往莫斯科方向',
+    tl_wb1_6: '预计到达莫斯科',
+    tl_wb2_1: '已揽收，货物到达广州仓',
+    tl_wb2_2: '海关报关完成，安排发运',
+    tl_wb2_3: '货物出关，驶往霍尔果斯口岸',
+    tl_wb2_4: '到达霍尔果斯口岸，通关中',
+    tl_wb2_5: '已出关，进入哈萨克斯坦境内',
+    tl_wb2_6: '✅ 货物已签收',
+    tl_wb3_1: '包装完成，等待发货',
+    tl_wb3_2: '已发货，从义乌出发',
+    tl_wb3_3: '预计到达霍尔果斯口岸',
+    tl_wb3_4: '预计到达莫斯科',
+  },
+  'ru': {
+    tl_wb1_1: 'Принят, прибыл на склад в Иу',
+    tl_wb1_2: 'Таможня пройдена, ожидает отправки',
+    tl_wb1_3: 'Груз покинул Китай, следует в Маньчжурию',
+    tl_wb1_4: 'Прибыл в Маньчжурию, перегрузка',
+    tl_wb1_5: 'Покинул Маньчжурию, следует в Москву',
+    tl_wb1_6: 'Ожидается прибытие в Москву',
+    tl_wb2_1: 'Принят, прибыл на склад в Гуанчжоу',
+    tl_wb2_2: 'Таможня пройдена, отправляется',
+    tl_wb2_3: 'Груз покинул Китай, следует в Хоргос',
+    tl_wb2_4: 'Прибыл в Хоргос, прохождение таможни',
+    tl_wb2_5: 'Покинул таможню, въезд в Казахстан',
+    tl_wb2_6: '✅ Груз доставлен',
+    tl_wb3_1: 'Упакован, ожидает отправки',
+    tl_wb3_2: 'Отправлен из Иу',
+    tl_wb3_3: 'Ожидается прибытие в Хоргос',
+    tl_wb3_4: 'Ожидается прибытие в Москву',
   }
 };
 
@@ -1128,23 +1465,23 @@ async function searchTracking() {
   const emptyDiv = document.getElementById('trackEmpty');
   const infoDiv = document.getElementById('trackInfo');
   const timelineDiv = document.getElementById('trackTimeline');
+  const t = i18n[currentLang];
+  const tl = tlTexts[currentLang];
 
   if (!input) {
     resultDiv.classList.remove('show');
     emptyDiv.style.display = 'block';
-    emptyDiv.textContent = '📋 请输入运单号';
+    emptyDiv.textContent = t.trackNoInput;
     return;
   }
 
   emptyDiv.style.display = 'block';
-  emptyDiv.textContent = '⏳ 查询中...';
+  emptyDiv.textContent = t.trackSearching;
 
-  // 1. 尝试调用 API
   const apiResult = await apiCall('/api/tracking', 'POST', { trackingNo: input });
   
   let data = null;
   if (apiResult && apiResult.success && apiResult.found) {
-    // API 返回数据映射
     const d = apiResult.data;
     data = {
       no: d.trackingNo,
@@ -1153,39 +1490,40 @@ async function searchTracking() {
       status: d.statusText,
       type: d.transportType,
       weight: d.weight,
-      eta: d.eta ? '预计 ' + d.eta : '运输中',
+      eta: d.eta ? '~' + d.eta : t.inTransit,
       timeline: d.timeline
     };
   } else {
-    // 2. API 不可用时降级到本地数据
     data = trackingDB[input];
   }
 
   if (!data) {
     resultDiv.classList.remove('show');
     emptyDiv.style.display = 'block';
-    emptyDiv.textContent = '❌ 未找到该运单，请核对运单号';
+    emptyDiv.textContent = t.trackNotFound;
     return;
   }
 
-  // Show info
+  // Get status text
+  const statusText = data.statusKey ? t[data.statusKey] || data.status : (data.status || '');
+
   infoDiv.innerHTML = `
-    <div class="ti-row"><span class="label">运单号</span><span class="value">${data.no}</span></div>
-    <div class="ti-row"><span class="label">线路</span><span class="value">${data.from} → ${data.to}</span></div>
-    <div class="ti-row"><span class="label">状态</span><span class="value">${data.status}</span></div>
-    <div class="ti-row"><span class="label">运输方式</span><span class="value">${data.type}</span></div>
-    <div class="ti-row"><span class="label">货物重量</span><span class="value">${data.weight}</span></div>
-    <div class="ti-row"><span class="label">预计到达</span><span class="value">${data.eta}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_no}</span><span class="value">${data.no}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_route}</span><span class="value">${data.from} → ${data.to}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_status}</span><span class="value">${statusText}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_type}</span><span class="value">${data.type}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_weight}</span><span class="value">${data.weight}</span></div>
+    <div class="ti-row"><span class="label">${t.tracking_eta}</span><span class="value">${data.eta === 'delivered' ? t.delivered : data.eta}</span></div>
   `;
 
-  // Timeline
   let html = '';
   data.timeline.forEach(node => {
     const cls = node.done ? 'done' : (node.current ? 'current' : '');
+    const nodeText = (node.textKey && tl[node.textKey]) ? tl[node.textKey] : (node.text || '');
     html += `
       <div class="track-node ${cls}">
         <div class="tn-time">${node.time}</div>
-        <div class="tn-text">${node.text}</div>
+        <div class="tn-text">${nodeText}</div>
       </div>
     `;
   });
@@ -1200,12 +1538,15 @@ document.getElementById('trackInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') searchTracking();
 });
 
-// ===== Rate Calculation =====
+// ============================================
+// Rate Calculation (with i18n)
+// ============================================
 async function calculateRate() {
   const from = document.getElementById('rateFrom').value;
   const to = document.getElementById('rateTo').value;
   const type = document.getElementById('rateType').value;
   const weight = parseFloat(document.getElementById('rateWeight').value) || 0;
+  const t = i18n[currentLang];
 
   const resultDiv = document.getElementById('rateResult');
   const amountEl = document.getElementById('rrAmount');
@@ -1213,32 +1554,31 @@ async function calculateRate() {
   const detailsEl = document.getElementById('rrDetails');
 
   if (!from || !to) {
-    alert('请选择发货地和目的地');
+    alert(t.selectFromTo);
     return;
   }
   if (weight <= 0) {
-    alert('请输入有效重量');
+    alert(t.inputWeight);
     return;
   }
 
-  // 1. 尝试调用 API
+  // Try API
   const apiResult = await apiCall('/api/rates', 'POST', { from, to, weight, type });
   
   if (apiResult && apiResult.success) {
     const d = apiResult.data;
     amountEl.textContent = `¥${d.total.toLocaleString()}`;
-    unitEl.textContent = `参考价 · ${d.from} → ${d.to} · ${d.transportType}`;
+    unitEl.textContent = `${d.from} → ${d.to} · ${d.transportType}`;
     detailsEl.innerHTML = `
-      <div>📊 单价：¥${d.unitPrice}/kg</div>
-      <div>⚖️ 计费重量：${d.weight}kg</div>
+      <div>📊 ${d.unitPrice}/kg</div>
+      <div>⚖️ ${d.weight}kg</div>
       <div>🚂 ${d.routeTime}</div>
-      <div style="margin-top:6px;font-size:11px;color:#999;">${d.note}</div>
     `;
     resultDiv.classList.add('show');
     return;
   }
 
-  // 2. 降级：本地计算
+  // Local calc
   const baseRates = {
     '莫斯科': { rail: 8.5, road: 10.5 },
     '哈萨克斯坦': { rail: 5.5, road: 7.0 },
@@ -1257,40 +1597,44 @@ async function calculateRate() {
   if (total > 1000) total = Math.round(total / 100) * 100;
 
   amountEl.textContent = `¥${total.toLocaleString()}`;
-  unitEl.textContent = `参考价 · ${from} → ${to} · ${type}`;
+  unitEl.textContent = `${from} → ${to} · ${type}`;
   
-  const routeInfo = to === '莫斯科' 
-    ? '🚂 莫斯科线路：西线18-25天 / 东线28-35天'
-    : '🚂 中亚线路：预计7-12天';
+  const routeInfo = to === '莫斯科' ? t.routeMoscow1 : t.routeCA1;
 
   detailsEl.innerHTML = `
-    <div>📊 单价：¥${unitPrice.toFixed(1)}/kg</div>
-    <div>⚖️ 计费重量：${weight}kg</div>
+    <div>📊 ¥${unitPrice.toFixed(1)}/kg</div>
+    <div>⚖️ ${weight}kg</div>
     <div>${routeInfo}</div>
-    <div style="margin-top:6px;font-size:11px;color:#999;">* 含基本报关费，不含关税及特殊操作费</div>
+    <div style="margin-top:6px;font-size:11px;color:#999;">${t.rateDetailNote}</div>
   `;
   resultDiv.classList.add('show');
 }
 
-// ===== Copy helper =====
+// ============================================
+// Copy to clipboard
+// ============================================
 function copyText(text) {
+  const t = i18n[currentLang];
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => {
-      showToast('已复制: ' + text);
-    }).catch(() => fallbackCopy(text));
+      showToast(t.copied + text);
+    }).catch(() => {
+      fallbackCopy(text, t);
+    });
   } else {
-    fallbackCopy(text);
+    fallbackCopy(text, t);
   }
 }
-function fallbackCopy(text) {
+
+function fallbackCopy(text, t) {
   const ta = document.createElement('textarea');
   ta.value = text;
   ta.style.position = 'fixed';
   ta.style.left = '-9999px';
   document.body.appendChild(ta);
   ta.select();
-  try { document.execCommand('copy'); showToast('已复制: ' + text); }
-  catch(e) { alert('复制失败，请手动复制: ' + text); }
+  try { document.execCommand('copy'); showToast(t.copied + text); }
+  catch(e) { alert(t.copyFailed + text); }
   document.body.removeChild(ta);
 }
 
@@ -1317,7 +1661,7 @@ function showToast(msg) {
   }, 2000);
 }
 
-// ===== Handle image errors gracefully =====
+// ===== Handle image errors =====
 document.querySelectorAll('img[src*="wildberry-logo"]').forEach(img => {
   img.onerror = function() {
     this.style.display = 'none';
