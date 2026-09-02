@@ -455,7 +455,7 @@ const ru = {
 i18n['ru'] = ru;
 
 // ======== State ========
-let currentLang = localStorage.getItem('lang') || (navigator.language || '').startsWith('zh') ? 'zh-CN' : (navigator.language || '').startsWith('ru') ? 'ru' : 'en';
+let currentLang = localStorage.getItem('lang') || ((navigator.language || '').startsWith('zh') ? 'zh-CN' : (navigator.language || '').startsWith('ru') ? 'ru' : 'en');
 
 // ======== Update lang button text ========
 function updateLangBtn() {
@@ -478,7 +478,7 @@ function applyLang(lang) {
     });
 
     // Update HTML lang
-    document.documentElement.lang = lang === 'zh-CN' ? 'zh-CN' : 'en';
+    document.documentElement.lang = lang;
 
     // Update meta tags
     const metaTitle = document.querySelector('title');
@@ -519,7 +519,7 @@ function applyLang(lang) {
         if (placeholder && dict['contact.form.country_pl']) {
             placeholder.textContent = dict['contact.form.country_pl'];
         }
-        const options = countrySelect.querySelectorAll('option[value!=""]');
+        const options = countrySelect.querySelectorAll('option:not([value=""])');
         const keyMap = {
             'Kazakhstan': 'contact.form.country_kz',
             'Russia': 'contact.form.country_ru',
@@ -527,7 +527,7 @@ function applyLang(lang) {
             'Uzbekistan': 'contact.form.country_uz',
             'Other': 'contact.form.country_other'
         };
-        if (lang === 'zh-CN') {
+        if (lang !== 'en') {
             options.forEach(o => {
                 const enVal = o.value;
                 if (keyMap[enVal] && dict[keyMap[enVal]]) {
@@ -722,30 +722,26 @@ function injectJsonLd() {
 // ======== Scroll Navbar Effect ========
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
-    } else {
-        navbar.style.boxShadow = 'none';
-    }
-});
+    if (!navbar) return;
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
-// ======== Scroll-triggered animations ========
+// ======== Scroll-triggered animations (uses .reveal / .in-view) ========
 function handleScrollAnimations() {
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('in-view'));
+        return;
+    }
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.product-card, .adv-card, .cat-card, .testimonial-card, .gallery-item, .workflow-step').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => observer.observe(el));
 }
 
 // ======== Smooth link scroll for mobile ========
