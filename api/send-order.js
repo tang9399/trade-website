@@ -85,7 +85,7 @@ async function buildWorkbook(order) {
   const items = Array.isArray(order.items) ? order.items : [];
   for (const it of items) {
     ws.getRow(r).height = 72;
-    ws.getCell(`B${r}`).value = it.id ? String(it.id) : '';
+    ws.getCell(`B${r}`).value = it.sku ? String(it.sku) : (it.id ? String(it.id) : '');
     ws.getCell(`C${r}`).value = it.name || '';
     ws.getCell(`D${r}`).value = it.qty || 0;
     ws.getCell(`E${r}`).value = Number(it.price || 0);
@@ -134,7 +134,7 @@ async function buildWorkbook(order) {
 function buildText(order) {
   const c = order.customer || {};
   const items = (order.items || [])
-    .map((it) => `- [${it.id || '-'}] ${it.name} ×${it.qty} = ¥${((it.price || 0) * (it.qty || 0)).toFixed(2)}`)
+    .map((it) => `- [${it.sku || it.id || '-'}] ${it.name} ×${it.qty} = ¥${((it.price || 0) * (it.qty || 0)).toFixed(2)}`)
     .join('\n');
   return [
     `订单号：${order.orderNo || ''}`, '',
