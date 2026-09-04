@@ -44,6 +44,7 @@ async function buildWorkbook(order) {
 
   ws.columns = [
     { key: 'img', width: 12 },
+    { key: 'sku', width: 16 },
     { key: 'name', width: 46 },
     { key: 'qty', width: 10 },
     { key: 'price', width: 12 },
@@ -75,7 +76,7 @@ async function buildWorkbook(order) {
 
   // 第 3 行：明细表头
   const headerRow = ws.getRow(3);
-  headerRow.values = ['图片', '商品名称', '数量', '单价(¥)', '金额(¥)'];
+  headerRow.values = ['图片', '商品码', '商品名称', '数量', '单价(¥)', '金额(¥)'];
   headerRow.eachCell((cell) => { cell.style = headStyle; });
   headerRow.height = 22;
 
@@ -84,14 +85,16 @@ async function buildWorkbook(order) {
   const items = Array.isArray(order.items) ? order.items : [];
   for (const it of items) {
     ws.getRow(r).height = 72;
-    ws.getCell(`B${r}`).value = it.name || '';
-    ws.getCell(`C${r}`).value = it.qty || 0;
-    ws.getCell(`D${r}`).value = Number(it.price || 0);
-    ws.getCell(`E${r}`).value = Number((it.price || 0) * (it.qty || 0));
-    ws.getCell(`C${r}`).numFmt = '0';
-    ws.getCell(`D${r}`).numFmt = '0.00';
+    ws.getCell(`B${r}`).value = it.id ? String(it.id) : '';
+    ws.getCell(`C${r}`).value = it.name || '';
+    ws.getCell(`D${r}`).value = it.qty || 0;
+    ws.getCell(`E${r}`).value = Number(it.price || 0);
+    ws.getCell(`F${r}`).value = Number((it.price || 0) * (it.qty || 0));
+    ws.getCell(`D${r}`).numFmt = '0';
     ws.getCell(`E${r}`).numFmt = '0.00';
+    ws.getCell(`F${r}`).numFmt = '0.00';
     ws.getCell(`A${r}`).alignment = { vertical: 'middle', horizontal: 'center' };
+    ws.getCell(`B${r}`).alignment = { vertical: 'middle', horizontal: 'center' };
 
     if (it.img) {
       const url = /^https?:/i.test(it.img) ? it.img : `${IMG_BASE}${it.img.replace(/^\/+/, '')}`;
@@ -112,14 +115,14 @@ async function buildWorkbook(order) {
   // 总金额（最后一行）
   const totalRow = r + 1;
   const total = Number(order.total || 0);
-  ws.getCell(`D${totalRow}`).value = '订单总金额(¥):';
-  ws.getCell(`D${totalRow}`).style = {
+  ws.getCell(`E${totalRow}`).value = '订单总金额(¥):';
+  ws.getCell(`E${totalRow}`).style = {
     font: { bold: true, size: 12 },
     alignment: { horizontal: 'right' },
   };
-  ws.getCell(`E${totalRow}`).value = total;
-  ws.getCell(`E${totalRow}`).numFmt = '0.00';
-  ws.getCell(`E${totalRow}`).style = {
+  ws.getCell(`F${totalRow}`).value = total;
+  ws.getCell(`F${totalRow}`).numFmt = '0.00';
+  ws.getCell(`F${totalRow}`).style = {
     font: { bold: true, size: 13, color: { argb: 'FFC0392B' } },
     alignment: { horizontal: 'left' },
   };
@@ -131,7 +134,7 @@ async function buildWorkbook(order) {
 function buildText(order) {
   const c = order.customer || {};
   const items = (order.items || [])
-    .map((it) => `- ${it.name} ×${it.qty} = ¥${((it.price || 0) * (it.qty || 0)).toFixed(2)}`)
+    .map((it) => `- [${it.id || '-'}] ${it.name} ×${it.qty} = ¥${((it.price || 0) * (it.qty || 0)).toFixed(2)}`)
     .join('\n');
   return [
     `订单号：${order.orderNo || ''}`, '',
