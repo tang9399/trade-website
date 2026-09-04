@@ -16,7 +16,8 @@ const SMTP_PORT = 465;
 const SMTP_USER = process.env.SMTP_USER || '401562890@qq.com';
 const SMTP_PASS = process.env.SMTP_PASS || '';
 const SMTP_TO = process.env.SMTP_TO || '401562890@qq.com';
-const SITE_ORIGIN = 'https://9399dragon.com';
+// 商品图片部署于 /shop/ 子路径下
+const IMG_BASE = 'https://9399dragon.com/shop/';
 
 async function downloadImage(url) {
   try {
@@ -93,7 +94,7 @@ async function buildWorkbook(order) {
     ws.getCell(`A${r}`).alignment = { vertical: 'middle', horizontal: 'center' };
 
     if (it.img) {
-      const url = /^https?:/i.test(it.img) ? it.img : `${SITE_ORIGIN}/${it.img.replace(/^\/+/, '')}`;
+      const url = /^https?:/i.test(it.img) ? it.img : `${IMG_BASE}${it.img.replace(/^\/+/, '')}`;
       const buf = await downloadImage(url);
       if (buf) {
         try {
