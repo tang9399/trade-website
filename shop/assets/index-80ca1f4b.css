@@ -26,3 +26,7 @@
 .cat-ico[data-v-aff4f82f]{color:#e0b65a;background:rgba(212,167,44,.14)}
 /* ===== 分类卡缩小 ===== */
 @media(min-width:901px){.cat-grid[data-v-aff4f82f]{grid-template-columns:repeat(5,150px);justify-content:center}}
+/* ===== 分类卡紧凑化(整体缩小) ===== */
+.cat-grid[data-v-aff4f82f]{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.cat-card[data-v-aff4f82f]{width:140px;aspect-ratio:1/1;padding:10px}
+@media(max-width:640px){.cat-card[data-v-aff4f82f]{width:118px}}
