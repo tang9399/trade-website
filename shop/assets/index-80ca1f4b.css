@@ -17,3 +17,25 @@
 }
 
 .hero-art video[data-v-aff4f82f]{max-height:380px;width:auto;max-width:100%;border-radius:16px;border:3px solid rgba(212,167,44,.5);box-shadow:0 0 32px rgba(212,167,44,.3);margin-left:auto;display:block;object-fit:cover}@media(max-width:900px){.hero-art video[data-v-aff4f82f]{max-height:270px}}@media(max-width:640px){.hero-art video[data-v-aff4f82f]{max-height:220px}}
+
+/* ===== 童装童趣主题覆盖 ===== */
+:root{
+  --navy:#6db6e8;--navy-2:#8ac6ef;--navy-3:#b3dcf5;
+  --gold:#ffab44;--gold-2:#ffc87a;
+  --bg:#fff5ef;--card:#fff;--text:#5a3d6b;--muted:#a78fb4;
+  --line:#f2e3f7;--red:#e26d6d;--radius:18px;
+  --shadow:0 8px 26px rgba(255,158,181,.2);
+}
+.hero[data-v-aff4f82f]{background:linear-gradient(120deg,#ffd9ec,#d6f0ff 55%,#dcf7e6);color:#8a4c9e}
+.hero p[data-v-aff4f82f]{color:#9a6fb0}
+.hero-glow[data-v-aff4f82f]{background:radial-gradient(circle,rgba(255,172,120,.35),transparent 70%)}
+.brand-text{color:#3f4a7a}
+.nav a{color:#3f5477}
+.nav a:hover{color:#ff8fb0}
+.topbar{color:#4a5a7a}
+.cart-btn{color:#3f5477;background:rgba(255,255,255,.65);border-color:rgba(120,70,140,.18)}
+.btn-navy{background:#5aa7df}
+.footer{background:#8ac6ef;color:#46577d}
+.footer h4{color:#34416e}
+.f-links a,.f-contact a{color:#46577d}
+.hero-art video[data-v-aff4f82f]{border-color:rgba(255,138,180,.55);box-shadow:0 0 32px rgba(255,150,180,.4)}
