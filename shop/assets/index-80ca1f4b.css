@@ -17,3 +17,10 @@
 }
 
 .hero-art video[data-v-aff4f82f]{max-height:380px;width:auto;max-width:100%;border-radius:16px;border:3px solid rgba(212,167,44,.5);box-shadow:0 0 32px rgba(212,167,44,.3);margin-left:auto;display:block;object-fit:cover}@media(max-width:900px){.hero-art video[data-v-aff4f82f]{max-height:270px}}@media(max-width:640px){.hero-art video[data-v-aff4f82f]{max-height:220px}}
+
+/* ===== 分类卡正方形+金色童装图标 ===== */
+.cat-grid[data-v-aff4f82f]{grid-template-columns:repeat(5,1fr);gap:16px}
+@media(max-width:900px){.cat-grid[data-v-aff4f82f]{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.cat-grid[data-v-aff4f82f]{grid-template-columns:repeat(2,1fr)}}
+.cat-card[data-v-aff4f82f]{aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
+.cat-ico[data-v-aff4f82f]{color:#e0b65a;background:rgba(212,167,44,.14)}
