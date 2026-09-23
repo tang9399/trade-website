@@ -24,3 +24,5 @@
 @media(max-width:640px){.cat-grid[data-v-aff4f82f]{grid-template-columns:repeat(2,1fr)}}
 .cat-card[data-v-aff4f82f]{aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
 .cat-ico[data-v-aff4f82f]{color:#e0b65a;background:rgba(212,167,44,.14)}
+/* ===== 分类卡缩小 ===== */
+@media(min-width:901px){.cat-grid[data-v-aff4f82f]{grid-template-columns:repeat(5,150px);justify-content:center}}
