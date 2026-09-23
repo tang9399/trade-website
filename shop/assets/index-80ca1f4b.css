@@ -30,3 +30,8 @@
 .cat-grid[data-v-aff4f82f]{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
 .cat-card[data-v-aff4f82f]{width:140px;aspect-ratio:1/1;padding:10px}
 @media(max-width:640px){.cat-card[data-v-aff4f82f]{width:118px}}
+/* ===== 分类卡再瘦小20% + 中间香槟色 + 图标深金配色 ===== */
+.cat-card[data-v-aff4f82f]{width:112px;padding:8px}
+@media(max-width:640px){.cat-card[data-v-aff4f82f]{width:94px}}
+.cat-grid[data-v-aff4f82f]{gap:12px}
+.cat-ico[data-v-aff4f82f]{width:44px;height:44px;font-size:19px;border-radius:12px;margin-bottom:8px;background:linear-gradient(135deg,#f8e9cb,#eed7a2);color:#b8860b;box-shadow:inset 0 0 0 1px rgba(190,150,70,.28)}
