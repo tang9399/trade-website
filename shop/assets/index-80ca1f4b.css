@@ -15,3 +15,5 @@
 .search input{width:100% !important;max-width:none;min-width:0;padding:7px 28px 7px 8px;font-size:12px}
 .cart-btn{flex:0 0 auto;width:36px;height:36px;font-size:14px}
 }
+
+.hero-art video[data-v-aff4f82f]{max-height:380px;width:auto;max-width:100%;border-radius:16px;border:3px solid rgba(212,167,44,.5);box-shadow:0 0 32px rgba(212,167,44,.3);margin-left:auto;display:block;object-fit:cover}@media(max-width:900px){.hero-art video[data-v-aff4f82f]{max-height:270px}}@media(max-width:640px){.hero-art video[data-v-aff4f82f]{max-height:220px}}
