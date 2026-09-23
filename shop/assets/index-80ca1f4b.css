@@ -63,3 +63,14 @@
 .hero-art[data-v-aff4f82f]{position:relative}
 .hero-art video[data-v-aff4f82f]{cursor:pointer}
 .hero-art[data-v-aff4f82f]::after{content:"\25B6";position:absolute;left:14px;bottom:44px;width:42px;height:42px;line-height:42px;text-align:center;font-size:17px;color:#fff;background:rgba(0,0,0,.42);border-radius:50%;pointer-events:none;padding-left:4px;z-index:3}
+/* ===== 手机/平板分类卡: 强制两排四列(8个) ===== */
+@media(max-width:900px){
+  .cat-grid[data-v-aff4f82f]{display:grid !important;grid-template-columns:repeat(4,1fr) !important;gap:10px !important;justify-items:center;width:100%}
+  .cat-card[data-v-aff4f82f]{width:100% !important;aspect-ratio:1/1 !important;padding:10px}
+  .cat-card[data-v-aff4f82f] .cat-ico{width:44px !important;height:44px !important;font-size:20px !important;border-radius:12px !important;margin-bottom:6px !important}
+}
+@media(max-width:480px){
+  .cat-card[data-v-aff4f82f]{padding:6px !important}
+  .cat-card[data-v-aff4f82f] .cat-ico{width:32px !important;height:32px !important;font-size:15px !important}
+  .cat-card[data-v-aff4f82f] span{font-size:10px !important;white-space:nowrap}
+}
