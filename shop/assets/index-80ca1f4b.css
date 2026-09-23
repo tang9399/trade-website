@@ -59,3 +59,7 @@
   .cat-card .cat-ico{width:34px;height:34px;font-size:16px;border-radius:10px;margin-bottom:4px}
   .cat-card span{font-size:10px}
 }
+/* ===== 首页视频: 点击播放(仅封面海报) ===== */
+.hero-art[data-v-aff4f82f]{position:relative}
+.hero-art video[data-v-aff4f82f]{cursor:pointer}
+.hero-art[data-v-aff4f82f]::after{content:"\25B6";position:absolute;left:14px;bottom:44px;width:42px;height:42px;line-height:42px;text-align:center;font-size:17px;color:#fff;background:rgba(0,0,0,.42);border-radius:50%;pointer-events:none;padding-left:4px;z-index:3}
