@@ -79,3 +79,4 @@
 .p-qty span{min-width:28px;text-align:center;font-weight:600;color:#111;font-size:14px}
 
 .cat-card[data-v-aff4f82f]:nth-child(1) .cat-ico{background:linear-gradient(135deg,#e0d9ff,#c7b8f5);color:#7a5cd6;box-shadow:inset 0 0 0 1px rgba(122,92,214,.22)}
+.cat-card[data-v-aff4f82f]:nth-child(10) .cat-ico{background:linear-gradient(135deg,#fdf0cc,#f3d98b);color:#b8860b;box-shadow:inset 0 0 0 1px rgba(184,134,11,.22)}
